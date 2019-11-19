@@ -580,3 +580,13 @@ int BinarySearch(const vector<char> &v, char x) {
     return -1;
 }
 
+Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx){
+    Motorista* m;
+    BSTItrIn <Motorista> it(motoristas);
+    while(!it.isAtEnd()){
+        if (it.retrieve().getId() == idx) m = new Motorista(it.retrieve());
+        it.advance();
+    }
+    return m;
+
+}

@@ -9,7 +9,7 @@ using namespace std;
 
 vector <Cliente> Empresa::getClientes() const {return clientes;}
 
-vector <Motorista> Empresa::getMotoristas() const {return motoristas;}
+BST <Motorista> Empresa::getMotoristas() const {return motoristas;}
 
 string Empresa::getName() const {return nome;}
 
@@ -17,7 +17,7 @@ void Empresa::setClientes(vector<Cliente> clientes) {
     this->clientes = clientes;
 }
 
-void Empresa::setMotoristas(vector<Motorista> motoristas) {
+void Empresa::setMotoristas(BST<Motorista> motoristas) {
     this->motoristas = motoristas;
 }
 
@@ -27,7 +27,7 @@ vector <ServicoTransporte> Empresa::getServicos() const {return servicos;}
 
 map <pair<string,string>,double> Empresa::getDistancias() const {return distancias;}
 
-Empresa::Empresa(string filename) {
+Empresa::Empresa(string filename) : motoristas(Motorista("", 0, 0, {"0","0"}, {}, 0)){
     this->filename = filename;
     ifstream file;
     file.open(this->filename);
@@ -262,14 +262,15 @@ void Empresa::readMotoristas() {
     file.open(this->motoristas_ficheiro);
     if (file.is_open() && !file.eof()) {
         while (true) {
-            string name, age_str, salario_str, horario_str, categorias_str, sep;
+            string name, age_str, salario_str, horario_str, categorias_str, total_horas_str,sep;
             getline(file, name);
             getline(file, age_str);
             getline(file, salario_str);
             getline(file, horario_str);
             getline(file, categorias_str);
-            Motorista *m = new Motorista(name, stoi(age_str), stoi(salario_str), toPair(horario_str), categoryVector(categorias_str));
-            this->motoristas.push_back(*m);
+            getline(file,total_horas_str);
+            Motorista *m = new Motorista(name, stoi(age_str), stoi(salario_str), toPair(horario_str), categoryVector(categorias_str), (unsigned) stoi(total_horas_str));
+            this->motoristas.insert(*m);
             if (file.eof()) break;
             else getline(file, sep);
         }
@@ -280,27 +281,28 @@ void Empresa::updateMotoristas() {
     ofstream file;
     string separator = ":::::";
     file.open(this->motoristas_ficheiro);
-    int numMotoristas = motoristas.size();
     if (file.is_open()){
-        for (Motorista m: motoristas){
-            file << m.getName() << endl;
-            file << to_string(m.getAge()) << endl;
-            file << to_string(m.getSalario()) << endl;
-            if (m.getHorario().first.length() == 4) file << "0" << m.getHorario().first << " -> " << m.getHorario().second << endl;
-            else file << m.getHorario().first << " -> " << m.getHorario().second << endl;
-            int numCategorias = m.getCategorias().size();
+       BSTItrIn <Motorista> it(motoristas);
+       while (!it.isAtEnd()){
+            file << it.retrieve().getName() << endl;
+            file << to_string(it.retrieve().getAge()) << endl;
+            file << to_string(it.retrieve().getSalario()) << endl;
+            if (it.retrieve().getHorario().first.length() == 4) file << "0" << it.retrieve().getHorario().first << " -> " << it.retrieve().getHorario().second << endl;
+            else file << it.retrieve().getHorario().first << " -> " << it.retrieve().getHorario().second << endl;
+            int numCategorias = it.retrieve().getCategorias().size();
             if (numCategorias > 1) {
                 int n = 1;
                 while (n != numCategorias) {
-                    file << m.getCategorias().at(n - 1) << " ; ";
+                    file << it.retrieve().getCategorias().at(n - 1) << " ; ";
                     n++;
                 }
-                file << m.getCategorias().at(n - 1);
+                file << it.retrieve().getCategorias().at(n - 1);
             }
-            else file << m.getCategorias().at(0);
-            if (!(m == motoristas.at(numMotoristas - 1))){
+            else file << it.retrieve().getCategorias().at(0);
+            if (!(it.retrieve() == motoristas.findMax())){
                 file << endl << separator << endl;
             }
+            it.advance();
         }
     }
 }
@@ -351,22 +353,27 @@ void Empresa::eliminarCliente(Cliente cli) {
 }
 
 void Empresa::adicionarMotorista(Motorista mot) {
-    for (Motorista m: motoristas)
-        if (m == mot) throw MotoristaRepetido(mot.getName(), mot.getId());
-    this->motoristas.push_back(mot);
+    BSTItrIn<Motorista> it(motoristas);
+    while (!it.isAtEnd()){
+        if (it.retrieve() == mot) throw MotoristaRepetido(mot.getName(), mot.getId());
+        it.advance();
+    }
+    this->motoristas.insert(mot);
 }
 
 void Empresa::eliminarMotorista(Motorista mot) {
-    size_t control = motoristas.size();
-    for (vector<Motorista>::iterator it = motoristas.begin(); it != motoristas.end(); it)
-        if (*it == mot) {
+    //size_t control = motoristas.size();
+    BSTItrIn<Motorista> it(motoristas);
+    while (!it.isAtEnd()){
+        if (it.retrieve() == mot) {
             cout << "Motorista eliminado: " << mot.getName() << " (Id = " << mot.getId() << ")" << endl;
-            it = motoristas.erase(it);
+            motoristas.remove(it.retrieve());
             atualizarServicosMotorista();
+            return;
         }
-        else it++;
-    if (control == motoristas.size()) //vetor permanece intacto => nenhum motorista removido
-        throw (MotoristaInexistente(mot.getName(), mot.getId()));
+        it.advance();
+    }
+    throw (MotoristaInexistente(mot.getName(), mot.getId())); //vetor permanece intacto => nenhum motorista removido
 }
 
 
@@ -516,11 +523,13 @@ void Empresa::atualizarServicosMotorista() {
     for (vector<ServicoTransporte>::iterator it = servicos.begin(); it != servicos.end(); it) {
         bool MotoristaDisponivel = false;
         vector <Motorista> Nmotoristas;
-        for (Motorista m: motoristas) {
-            auto ite = find(m.getCategorias().begin(), m.getCategorias().end(), it->getTipo().at(0));
-            if (m.isWorking(it->getHorario()) && ite != m.getCategorias().end()) {
+        BSTItrIn <Motorista> itm(motoristas);
+        while(!itm.isAtEnd()) {
+            auto ite = find(itm.retrieve().getCategorias().begin(), itm.retrieve().getCategorias().end(), it->getTipo().at(0));
+            if (itm.retrieve().isWorking(it->getHorario()) && ite != itm.retrieve().getCategorias().end()) {
                 MotoristaDisponivel = true;
             }
+            itm.advance();
         }
         if (MotoristaDisponivel) (*it).setDisponibilidade(0);
         else it++;
@@ -549,12 +558,12 @@ void Empresa::adicionarServico(ServicoTransporte st) {
         throw LocalizacaoIndisponivel(st.getOrigem());
     else if (i_destino == localizacoes.end())
         throw LocalizacaoIndisponivel(st.getDestino());
-
-    for (Motorista m: motoristas){
-        vector<char> cate = m.getCategorias();
+    BSTItrIn <Motorista> it(motoristas);
+    while (!it.isAtEnd()){
+        vector<char> cate = it.retrieve().getCategorias();
         sort(cate.begin(), cate.end());
         int idx = BinarySearch(cate, st.getTipo().at(0));
-        if (m.isWorking(st.getHorario()) && idx != -1){
+        if (it.retrieve().isWorking(st.getHorario()) && idx != -1){
             MotoristasIndisponiveisctr = false;
         }
     }
@@ -591,8 +600,9 @@ double Empresa::calcularLucroMensal() { //associado ao mes presente no tempo rea
             if (getCurrentTime().ano == st.getDate().ano && getCurrentTime().mes == st.getDate().mes && st.getDisponibilidade() == 0)
                 result += st.getPreco(this->distancias);
     }
-    for (Motorista m: motoristas){
-        result -= m.getSalario();
+    BSTItrIn <Motorista> it(motoristas);
+    while (!it.isAtEnd()){
+        result -= it.retrieve().getSalario();
     }
     return result;
 }

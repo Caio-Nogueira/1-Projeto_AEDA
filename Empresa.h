@@ -9,6 +9,7 @@
 #include <fstream>
 #include <set>
 #include <algorithm>
+#include "BST.h"
 using namespace std;
 
 /**
@@ -18,7 +19,7 @@ class Empresa {
     string nome;
     string filename;
     vector<Cliente> clientes;
-    vector<Motorista> motoristas;
+    BST<Motorista> motoristas;
     vector<Camiao *> camioes;
     string clientes_ficheiro;
     string motoristas_ficheiro;
@@ -70,9 +71,9 @@ public:
     /**
     * @brief Retorna os motoristas registados na empresa
     *
-    * @return vector<Motorista> Motoristas da empresa
+    * @return BST<Motorista> Motoristas da empresa
     */
-    vector<Motorista> getMotoristas() const;
+    BST<Motorista> getMotoristas() const;
 
     /**
     * @brief Retorna as rotas registadas na empresa, cada rota contendo os dois locais e a distancia entre estes
@@ -100,7 +101,7 @@ public:
     *
     * @param motoristas Novo valor a ser usado
     */
-    void setMotoristas(vector<Motorista> motoristas);
+    void setMotoristas(BST<Motorista> motoristas);
 
     /**
     * @brief Muda o registo de camioes na empresa

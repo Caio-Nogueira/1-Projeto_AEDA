@@ -249,7 +249,9 @@ class Motorista: public Person{
     int salario;
     pair <string, string> horario;
     vector<char> categorias;
-public:	
+    unsigned total_horas;
+public:
+    Motorista();
 	/**
 	* @brief Retorna o ID do motorista
 	*
@@ -320,9 +322,10 @@ public:
 	* @param salario Salario do motorista
 	* @param horario Horario do motorista
 	* @param categorias Categorias do motorista
+	* @param total_horas numero total de horas prestadas pelo motorista
 	* @return Motorista Motorista criado
 	*/
-    Motorista(string name, int age, int salario, pair<string, string> horario, vector<char> categorias);
+    Motorista(string name, int age, int salario, pair<string, string> horario, vector<char> categorias, unsigned total_horas);
 	/**
 	* @brief Overload do operador == para averiguar a igualdade de 2 motoristas
 	*
@@ -338,6 +341,12 @@ public:
 	* @return ostream Mesma stream utilizada como parametro
 	*/
     friend ostream& operator << (ostream& out, const Motorista& m);
+    /**
+     * @brief Overload do operador < para comparação entre motoristas
+     * @param m motorista a comparar
+     * @return bool true se o motorista (*this) for considerado menor que o motorista m
+     */
+    bool operator <(const Motorista& m) const;
 };
 
 

@@ -7,6 +7,8 @@
 #include <sstream>
 #include "ServicoTransporte.h"
 #include <ctime>
+#include "Person.h"
+#include "BST.h"
 using namespace std;
 
 /**
@@ -233,3 +235,5 @@ string menuDateInput(string mensagem);
  */
 
 int BinarySearch(const vector<char> &v, char x);
+
+Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx);

@@ -41,11 +41,12 @@ int Motorista::getSalario() const {
 }
 
 
-Motorista::Motorista(string name, int age, int salario, pair<string, string> horario, vector<char> categorias) : Person(name, age) {
+Motorista::Motorista(string name, int age, int salario, pair<string, string> horario, vector<char> categorias, unsigned total_horas) : Person(name, age) {
     this->id = ++last_id;
     this->salario = salario;
     this->horario = horario;
     this->categorias = categorias;
+    this->total_horas = total_horas;
 }
 
 bool Cliente::operator==(const Cliente c2) {
@@ -110,6 +111,7 @@ ostream& operator<<(ostream &out, const Motorista &m) {
     out << "Idade - " << m.getAge() << endl;
     out << "Salario - " << m.getSalario() << endl;
     out << "Horario - " << "[" << m.getHorario().first << " ; " << m.getHorario().second << "]" << endl;
+    out << "Numero de horas de trabalho - " <<  m.total_horas << endl;
     string s = "(";
     if (m.getCategorias().size() == 1) {
         s += m.getCategorias().at(0);
@@ -166,3 +168,9 @@ MotoristaRepetido::MotoristaRepetido(string name, int id) {
 string MotoristaRepetido::getName() const {return name;}
 
 int MotoristaRepetido::getId() const {return id;}
+
+bool Motorista::operator<(const Motorista& m) const {
+    return this->total_horas < m.total_horas;
+}
+
+Motorista::Motorista() :Person("", 0){}

@@ -692,8 +692,7 @@ void adicionarMotoristas(Empresa& e1) {
     horario_str = horario_str + " -> " + horario2_str;
     cin.ignore(10000, '\n');
     cout << "Categorias (separadadas por ' ; '):";  getline(cin, categorias_str);
-
-    Motorista mot(nome, idade, salario, toPair(horario_str), categoryVector(categorias_str));
+    Motorista mot(nome, idade, salario, toPair(horario_str), categoryVector(categorias_str),0);
     try {
         e1.adicionarMotorista(mot);
         cout << endl << "Motorista adicionardo => " << mot.getName() << endl;
@@ -706,11 +705,13 @@ void adicionarMotoristas(Empresa& e1) {
 void editarMotoristas(Empresa& e1) {
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    for (size_t i = 1; i <= e1.getMotoristas().size(); i++) {
-        cout << e1.getMotoristas().at(i - 1);
+    BSTItrIn <Motorista> it(e1.getMotoristas());
+    while (!it.isAtEnd()) {
+        cout << it.retrieve();
         cout << "--------------------------------------------------" << endl;
+        it.advance();
     }
-    int idx = menuValidInput("Selecione o motorista que pretende editar:", 0, e1.getMotoristas().size());
+    int idx = menuValidInput("Selecione o motorista que pretende editar:", 0, (int) Motorista::getLastId()+1);
     if (idx == 0) return;
     cout << "Selecione o que pretende editar\n";
     cout << "[0] Voltar\n" << "[1] Nome\n" << "[2] Idade\n" << "[3] Salario\n" << "[4] Horario\n" << "[5] Categorias para as quais o motorista e qualificado\n";
@@ -725,24 +726,24 @@ void editarMotoristas(Empresa& e1) {
             cout << "Nome:";
             getline(cin, name);
             name = removeSpaces(name);
-            vector<Motorista> copia = e1.getMotoristas();
-            copia.at(idx - 1).setName(name);
+            BST<Motorista> copia = e1.getMotoristas();
+            findMotoristaIndex(copia,idx)->setName(name);
             e1.setMotoristas(copia);
             break;
         }
         case 2: {
             int age;
             age = menuValidInput("Idade:", 24, 65);
-            vector<Motorista> copia = e1.getMotoristas();
-            copia.at(idx - 1).setAge(age);
+            BST<Motorista> copia = e1.getMotoristas();
+            findMotoristaIndex(copia,idx)->setAge(age);
             e1.setMotoristas(copia);
             break;
         }
         case 3: {
             int salary;
             salary = menuValidInput("Novo salario:", 0, 1000000000);
-            vector<Motorista> copia = e1.getMotoristas();
-            copia.at(idx - 1).setSalario(salary);
+            BST<Motorista> copia = e1.getMotoristas();
+            findMotoristaIndex(copia,idx)->setSalario(salary);
             e1.setMotoristas(copia);
             break;
         }
@@ -753,16 +754,16 @@ void editarMotoristas(Empresa& e1) {
                 case 1: {
                     string inicio;
                     inicio = inputHorario("Horario Inicial (HH:MM):");
-                    vector<Motorista> copia = e1.getMotoristas();
-                    copia.at(idx - 1).setHorario(inicio, copia.at(idx - 1).getHorario().second);
+                    BST<Motorista> copia = e1.getMotoristas();
+                    findMotoristaIndex(copia,idx)->setHorario(inicio, findMotoristaIndex(copia,idx)->getHorario().second);
                     e1.setMotoristas(copia);
                     break;
                 }
                 case 2: {
                     string fim;
                     fim = inputHorario("Horario Final (HH:MM):");
-                    vector<Motorista> copia = e1.getMotoristas();
-                    copia.at(idx - 1).setHorario(copia.at(idx - 1).getHorario().first, fim);
+                    BST<Motorista> copia = e1.getMotoristas();
+                    findMotoristaIndex(copia,idx)->setHorario(findMotoristaIndex(copia, idx)->getHorario().first, fim);
                     e1.setMotoristas(copia);
                     break;
                 }
@@ -774,8 +775,8 @@ void editarMotoristas(Empresa& e1) {
                     time1 = removeSpaces(time1);
                     time += " -> ";
                     time += time1;
-                    vector<Motorista> copia = e1.getMotoristas();
-                    copia.at(idx - 1).setHorario(toPair(time));
+                    BST<Motorista> copia = e1.getMotoristas();
+                    findMotoristaIndex(copia,idx)->setHorario(toPair(time));
                     e1.setMotoristas(copia);
                     break;
                 }
@@ -785,8 +786,8 @@ void editarMotoristas(Empresa& e1) {
         case 5: {
             string category;
             cout << "Categorias (separadadas por ' ; ') "; getline(cin, category);
-            vector<Motorista> copia = e1.getMotoristas();
-            copia.at(idx - 1).setCategorias(categoryVector(category));
+            BST<Motorista> copia = e1.getMotoristas();
+            findMotoristaIndex(copia,idx)->setCategorias(categoryVector(category));
             e1.setMotoristas(copia);
             break;
         }
@@ -795,17 +796,18 @@ void editarMotoristas(Empresa& e1) {
 }
 
 void eliminarMotoristas(Empresa& e1) {
-    vector<Motorista> copia = e1.getMotoristas();
+    BST<Motorista> copia = e1.getMotoristas();
+    BSTItrIn <Motorista> it(copia);
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    for (size_t i = 1; i <= e1.getMotoristas().size(); i++) {
-        cout << "[" << i << "] -> ";
-        cout << e1.getMotoristas().at(i - 1);
+    while (!it.isAtEnd()) {
+        cout << "[" << it.retrieve().getId() << "] -> ";
+        cout << findMotoristaIndex(copia, it.retrieve().getId());
         cout << "--------------------------------------------------" << endl;
     }
-    int option = menuValidInput("Selecione o motorista:", 0, e1.getMotoristas().size());
+    int option = menuValidInput("Selecione o motorista:", 0, Motorista::getLastId()+1);
     if (option == 0) return;
-    e1.eliminarMotorista(e1.getMotoristas().at(option - 1));
+    e1.eliminarMotorista(*findMotoristaIndex(copia, option));
 }
 
 
@@ -970,19 +972,21 @@ void mostrarInformacaoMotoristas(Empresa& e1) {
     cout << "= = = = = = =ESTATISTICAS MOTORISTAS= = = = = = =" << endl;
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    for (size_t i = 1; i <= e1.getMotoristas().size(); i++){
-        cout << "[" << i << "] Nome:" << e1.getMotoristas().at(i-1).getName() << endl << "    Idade:" << e1.getMotoristas().at(i - 1).getAge() << endl;
+    BSTItrIn <Motorista> it(e1.getMotoristas());
+    while (!it.isAtEnd()){
+        cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(e1.getMotoristas(), it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(e1.getMotoristas(), it.retrieve().getId())->getAge() << endl;
         cout << "--------------------------------------------------" << endl;
+        it.advance();
     }
     int option = menuValidInput("Selecione o motorista para ver em detalhe:", 0, e1.getServicos().size());
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     if (option == 0) return;
-    Motorista mot = e1.getMotoristas().at(option - 1);
-    cout << mot;
+    Motorista *mot = findMotoristaIndex(e1.getMotoristas(), option);
+    cout << *mot;
 }
 
 void mostrarInformacaoEmpresa(Empresa& e1){
-    cout << "Numero de motoristas: " << e1.getMotoristas().size() << endl;
+    cout << "Numero de motoristas: " << Motorista::getLastId() << endl;
     cout << "Numero de clientes ativos: " << e1.getClientes().size() << endl;
     cout << "Numero de servicos de transporte disponiveis: " << e1.getServicos().size() << endl;
     cout << "Lucro mensal estimado: " << e1.calcularLucroMensal() << endl;
