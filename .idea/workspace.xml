@@ -12,25 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16b1b749-609e-474a-abd1-be5edf063e2b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BST.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/camioes.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientes.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/distancias.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/empresa.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/motoristas.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Empresa.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Empresa.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Empresa.h" beforeDir="false" afterPath="$PROJECT_DIR$/Empresa.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Person.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Person.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Person.h" beforeDir="false" afterPath="$PROJECT_DIR$/Person.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/menus.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +115,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
