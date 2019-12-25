@@ -705,7 +705,8 @@ void adicionarMotoristas(Empresa& e1) {
 void editarMotoristas(Empresa& e1) {
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    BSTItrIn <Motorista> it(e1.getMotoristas());
+    BST <Motorista> copia = e1.getMotoristas();
+    BSTItrIn <Motorista> it(copia);
     while (!it.isAtEnd()) {
         cout << it.retrieve();
         cout << "--------------------------------------------------" << endl;
@@ -726,24 +727,33 @@ void editarMotoristas(Empresa& e1) {
             cout << "Nome:";
             getline(cin, name);
             name = removeSpaces(name);
-            BST<Motorista> copia = e1.getMotoristas();
-            findMotoristaIndex(copia,idx)->setName(name);
+            Motorista *s = findMotoristaIndex(copia,idx);
+            copia.remove(*s);
+            //BST<Motorista> copia = e1.getMotoristas();
+            s->setName(name);
+            copia.insert(*s);
             e1.setMotoristas(copia);
             break;
         }
         case 2: {
             int age;
             age = menuValidInput("Idade:", 24, 65);
-            BST<Motorista> copia = e1.getMotoristas();
-            findMotoristaIndex(copia,idx)->setAge(age);
+            //BST<Motorista> copia = e1.getMotoristas();
+            Motorista* m = findMotoristaIndex(copia,idx);
+            copia.remove(*m);
+            m->setAge(age);
+            copia.insert(*m);
             e1.setMotoristas(copia);
             break;
         }
         case 3: {
             int salary;
             salary = menuValidInput("Novo salario:", 0, 1000000000);
-            BST<Motorista> copia = e1.getMotoristas();
-            findMotoristaIndex(copia,idx)->setSalario(salary);
+            //BST<Motorista> copia = e1.getMotoristas();
+            Motorista* m = findMotoristaIndex(copia,idx);
+            copia.remove(*m);
+            m->setSalario(salary);
+            copia.insert(*m);
             e1.setMotoristas(copia);
             break;
         }
@@ -754,16 +764,22 @@ void editarMotoristas(Empresa& e1) {
                 case 1: {
                     string inicio;
                     inicio = inputHorario("Horario Inicial (HH:MM):");
-                    BST<Motorista> copia = e1.getMotoristas();
-                    findMotoristaIndex(copia,idx)->setHorario(inicio, findMotoristaIndex(copia,idx)->getHorario().second);
+                    //BST<Motorista> copia = e1.getMotoristas();
+                    Motorista* m = findMotoristaIndex(copia,idx);
+                    copia.remove(*m);
+                    m->setHorario(inicio, m->getHorario().second);
+                    copia.insert(*m);
                     e1.setMotoristas(copia);
                     break;
                 }
                 case 2: {
                     string fim;
                     fim = inputHorario("Horario Final (HH:MM):");
-                    BST<Motorista> copia = e1.getMotoristas();
-                    findMotoristaIndex(copia,idx)->setHorario(findMotoristaIndex(copia, idx)->getHorario().first, fim);
+                    //BST<Motorista> copia = e1.getMotoristas();
+                    Motorista* m = findMotoristaIndex(copia,idx);
+                    copia.remove(*m);
+                    m->setHorario(m->getHorario().first, fim);
+                    copia.insert(*m);
                     e1.setMotoristas(copia);
                     break;
                 }
@@ -775,8 +791,11 @@ void editarMotoristas(Empresa& e1) {
                     time1 = removeSpaces(time1);
                     time += " -> ";
                     time += time1;
-                    BST<Motorista> copia = e1.getMotoristas();
-                    findMotoristaIndex(copia,idx)->setHorario(toPair(time));
+                    //BST<Motorista> copia = e1.getMotoristas();
+                    Motorista* m = findMotoristaIndex(copia,idx);
+                    copia.remove(*m);
+                    m->setHorario(toPair(time));
+                    copia.insert(*m);
                     e1.setMotoristas(copia);
                     break;
                 }
@@ -786,8 +805,11 @@ void editarMotoristas(Empresa& e1) {
         case 5: {
             string category;
             cout << "Categorias (separadadas por ' ; ') "; getline(cin, category);
-            BST<Motorista> copia = e1.getMotoristas();
-            findMotoristaIndex(copia,idx)->setCategorias(categoryVector(category));
+            //BST<Motorista> copia = e1.getMotoristas();
+            Motorista* m = findMotoristaIndex(copia,idx);
+            copia.remove(*m);
+            m->setCategorias(categoryVector(category));
+            copia.insert(*m);
             e1.setMotoristas(copia);
             break;
         }
@@ -972,9 +994,10 @@ void mostrarInformacaoMotoristas(Empresa& e1) {
     cout << "= = = = = = =ESTATISTICAS MOTORISTAS= = = = = = =" << endl;
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    BSTItrIn <Motorista> it(e1.getMotoristas());
+    BST<Motorista> copia = e1.getMotoristas();
+    BSTItrIn <Motorista> it(copia);
     while (!it.isAtEnd()){
-        cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(e1.getMotoristas(), it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(e1.getMotoristas(), it.retrieve().getId())->getAge() << endl;
+        cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
         cout << "--------------------------------------------------" << endl;
         it.advance();
     }

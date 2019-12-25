@@ -270,6 +270,8 @@ void Empresa::readMotoristas() {
             getline(file, categorias_str);
             getline(file,total_horas_str);
             Motorista *m = new Motorista(name, stoi(age_str), stoi(salario_str), toPair(horario_str), categoryVector(categorias_str), (unsigned) stoi(total_horas_str));
+            //m->setId((int) Motorista::getLastId()+1);
+            //m->updateLastId();
             this->motoristas.insert(*m);
             if (file.eof()) break;
             else getline(file, sep);
@@ -296,9 +298,10 @@ void Empresa::updateMotoristas() {
                     file << it.retrieve().getCategorias().at(n - 1) << " ; ";
                     n++;
                 }
-                file << it.retrieve().getCategorias().at(n - 1);
+                file << it.retrieve().getCategorias().at(n - 1) << endl;
             }
-            else file << it.retrieve().getCategorias().at(0);
+            else file << it.retrieve().getCategorias().at(0) << endl;
+            file << it.retrieve().getTotalHoras();
             if (!(it.retrieve() == motoristas.findMax())){
                 file << endl << separator << endl;
             }
@@ -358,6 +361,8 @@ void Empresa::adicionarMotorista(Motorista mot) {
         if (it.retrieve() == mot) throw MotoristaRepetido(mot.getName(), mot.getId());
         it.advance();
     }
+    mot.setId(Motorista::getLastId()+1);
+    mot.updateLastId();
     this->motoristas.insert(mot);
 }
 

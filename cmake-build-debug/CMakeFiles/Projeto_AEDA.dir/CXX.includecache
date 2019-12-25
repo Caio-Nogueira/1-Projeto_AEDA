@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-F:/AEDA/repos/1-Projeto_AEDA/BST.h
+D:/AEDA/1-Projeto_AEDA/BST.h
 iostream
 -
 stack
@@ -14,15 +14,25 @@ stack
 queue
 -
 
-F:/AEDA/repos/1-Projeto_AEDA/Empresa.h
-ServicoTransporte.h
-F:/AEDA/repos/1-Projeto_AEDA/ServicoTransporte.h
-camiao.h
-F:/AEDA/repos/1-Projeto_AEDA/camiao.h
-Person.h
-F:/AEDA/repos/1-Projeto_AEDA/Person.h
+D:/AEDA/1-Projeto_AEDA/Empresa.cpp
+iostream
+-
+Empresa.h
+D:/AEDA/1-Projeto_AEDA/Empresa.h
 Utils.h
-F:/AEDA/repos/1-Projeto_AEDA/Utils.h
+D:/AEDA/1-Projeto_AEDA/Utils.h
+fstream
+-
+
+D:/AEDA/1-Projeto_AEDA/Empresa.h
+ServicoTransporte.h
+D:/AEDA/1-Projeto_AEDA/ServicoTransporte.h
+camiao.h
+D:/AEDA/1-Projeto_AEDA/camiao.h
+Person.h
+D:/AEDA/1-Projeto_AEDA/Person.h
+Utils.h
+D:/AEDA/1-Projeto_AEDA/Utils.h
 string
 -
 vector
@@ -34,11 +44,11 @@ set
 algorithm
 -
 BST.h
-F:/AEDA/repos/1-Projeto_AEDA/BST.h
+D:/AEDA/1-Projeto_AEDA/BST.h
 
-F:/AEDA/repos/1-Projeto_AEDA/Person.h
+D:/AEDA/1-Projeto_AEDA/Person.h
 ServicoTransporte.h
-F:/AEDA/repos/1-Projeto_AEDA/ServicoTransporte.h
+D:/AEDA/1-Projeto_AEDA/ServicoTransporte.h
 string
 -
 map
@@ -46,9 +56,9 @@ map
 iostream
 -
 
-F:/AEDA/repos/1-Projeto_AEDA/ServicoTransporte.h
+D:/AEDA/1-Projeto_AEDA/ServicoTransporte.h
 camiao.h
-F:/AEDA/repos/1-Projeto_AEDA/camiao.h
+D:/AEDA/1-Projeto_AEDA/camiao.h
 vector
 -
 string
@@ -58,7 +68,7 @@ iostream
 map
 -
 
-F:/AEDA/repos/1-Projeto_AEDA/Utils.h
+D:/AEDA/1-Projeto_AEDA/Utils.h
 vector
 -
 string
@@ -70,39 +80,17 @@ algorithm
 sstream
 -
 ServicoTransporte.h
-F:/AEDA/repos/1-Projeto_AEDA/ServicoTransporte.h
+D:/AEDA/1-Projeto_AEDA/ServicoTransporte.h
 ctime
 -
 Person.h
-F:/AEDA/repos/1-Projeto_AEDA/Person.h
+D:/AEDA/1-Projeto_AEDA/Person.h
 BST.h
-F:/AEDA/repos/1-Projeto_AEDA/BST.h
+D:/AEDA/1-Projeto_AEDA/BST.h
 
-F:/AEDA/repos/1-Projeto_AEDA/camiao.h
+D:/AEDA/1-Projeto_AEDA/camiao.h
 string
 -
 iostream
 -
-
-F:/AEDA/repos/1-Projeto_AEDA/menus.cpp
-iostream
--
-menus.h
-F:/AEDA/repos/1-Projeto_AEDA/menus.h
-iomanip
--
-
-F:/AEDA/repos/1-Projeto_AEDA/menus.h
-menus.h
-F:/AEDA/repos/1-Projeto_AEDA/menus.h
-ServicoTransporte.h
-F:/AEDA/repos/1-Projeto_AEDA/ServicoTransporte.h
-Person.h
-F:/AEDA/repos/1-Projeto_AEDA/Person.h
-camiao.h
-F:/AEDA/repos/1-Projeto_AEDA/camiao.h
-Empresa.h
-F:/AEDA/repos/1-Projeto_AEDA/Empresa.h
-Utils.h
-F:/AEDA/repos/1-Projeto_AEDA/Utils.h
 

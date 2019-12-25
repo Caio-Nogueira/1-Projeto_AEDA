@@ -95,7 +95,7 @@ void Motorista::setCategorias(vector<char> category) {
 }
 
 bool Motorista::operator==(const Motorista m) {
-    return this->getId() == m.getId();
+    return this->getName() == m.getName() && this->age == m.age;
 }
 
 ostream& operator<<(ostream &out, const Cliente& c) {
@@ -174,3 +174,11 @@ bool Motorista::operator<(const Motorista& m) const {
 }
 
 Motorista::Motorista() :Person("", 0){}
+
+int Motorista::getTotalHoras() const {
+    return total_horas;
+}
+
+void Motorista::setId(int id) {this->id = id;}
+
+void Motorista::updateLastId() {Motorista::last_id++;}

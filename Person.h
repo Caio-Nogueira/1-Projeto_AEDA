@@ -269,7 +269,12 @@ public:
 	*
 	* @param salary Novo valor a ser usado
 	*/
-    void setSalario(int salary);	
+    void setSalario(int salary);
+    /**
+     * @brief Altera o valor do id do mototista
+     * @param id novo valor do identificador do motorista
+     */
+    void setId(int id);
 	/**
 	* @brief Muda o horario do motorista, usando um par de hora de inicio/fim
 	*
@@ -306,7 +311,12 @@ public:
 	*
 	* @return vector<char> Categorias do motorista
 	*/
-    vector<char> getCategorias() const;	
+    vector<char> getCategorias() const;
+    /**
+     * @brief Obtem o numero total de horas trabaçhadas pelo motorista
+     * @return inteiro com o numero de horas do respetivo motorista
+     */
+    int getTotalHoras() const;
 	/**
 	* @brief Averigua se o motorista esta a trabalhar durante a hora especificada
 	*
@@ -347,6 +357,8 @@ public:
      * @return bool true se o motorista (*this) for considerado menor que o motorista m
      */
     bool operator <(const Motorista& m) const;
+
+    void updateLastId();
 };
 
 
