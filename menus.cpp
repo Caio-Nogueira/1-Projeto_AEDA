@@ -11,7 +11,7 @@ void adicionarClientes(Empresa& e1){
     int idade = menuValidInput("Idade:" ,18,120);
     int nif = inputNIF("Nif:");
 
-    Cliente n(nome, idade, nif);
+    Cliente n(nome, idade, nif, 0);
     try{
         e1.adicionarCliente(n);
         cout << endl << "Cliente adicionardo => " << n.getName() << endl;
@@ -80,6 +80,7 @@ void editarClientes(Empresa& e1){
             ServicoTransporte s = st1.at(option2-1);
             st1.erase(st1.begin() + option2 -1);
             copia.at(idx-1).setServicos(st1);
+            copia.at(idx-1).setDisp(dispCheck(copia.at(idx-1)));
             e1.setClientes(copia);
             e1.setDisponivel(s);
             break;
@@ -98,6 +99,7 @@ void editarClientes(Empresa& e1){
             v.push_back(e1.servicosDisponiveis().at(option-1));
             e1.eliminarServico(e1.servicosDisponiveis().at(option-1));
             copia_clientes.at(idx-1).setServicos(v);
+            copia_clientes.at(idx-1).setDisp(dispCheck(copia_clientes.at(idx-1)));
             e1.setClientes(copia_clientes);
             break;
         }
@@ -132,22 +134,19 @@ void gerirClientes(Empresa& e1){
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     switch(option){
         case 0: return;
-        case 1:{
+        case 1:
             adicionarClientes(e1);
             e1.updateClientes();
             break;
-        }
-        case 2:{
+        case 2:
             editarClientes(e1);
             e1.updateClientes();
             e1.updateServicos();
             break;
-        }
-        case 3:{
+        case 3:
             eliminarClientes(e1);
             e1.updateClientes();
             break;
-        }
         default: gerirClientes(e1);
     }
 }
@@ -241,7 +240,7 @@ void adicionarCamioes(Empresa& e1){
 }
 
 
-void eliminarCamioes(Empresa& e1){
+void eliminarCamioes(Empresa& e1) {
     cout << "[0] Sair\n";
     for (size_t i = 1; i <= e1.getCamioes().size(); i++){
         cout << "[" << i << "]\n" << *e1.getCamioes().at(i-1) << endl;
@@ -329,147 +328,6 @@ void editarCamioes(Empresa& e1) {
             break;
         }
     }
-
-    /*
-
-    if (np != nullptr) { //camiao perigoso
-        switch (option2) {
-            break;
-        case 1: {
-            int id = menuValidInput("ID:", 0, 9999999);
-            for (Camiao* x : e1.getCamioes()) {
-                if (id == x->getId()) {
-                    cout << "Valor invalido de identificador\n";
-                    break;
-                }
-                np->setId(id);
-            }
-        }
-        case 2: {
-            int capacidade = menuValidInput("Capacidade:", 0, 9999999);
-            np->setCapacidade(capacidade);
-            break;
-        }
-        case 3: {
-            string marca; cout << "Marca: ";
-            cin.ignore();
-            getline(cin, marca);
-            np->setMarca(marca);
-            break;
-        }
-        case 4: {
-            string nivel = nivelVerifier();
-            np->setNivel(nivel);
-            break;
-        }
-        }
-    }
-
-    else if (nc != nullptr) {
-        cout << "[0] Sair\n" << "[1] ID\n" << "[2] Capacidade\n" << "[3] Marca\n" << "[4] Temperatura minima\n";
-        int option2 = menuValidInput("Opcao:", 0, 4);
-        switch (option2) {
-        case 0:
-            break;
-        case 1: {
-            int id = menuValidInput("ID:", 0, 9999999);
-            for (Camiao* x : e1.getCamioes()) {
-                if (id == x->getId()) {
-                    cout << "Valor invalido de identificador\n";
-                    break;
-                }
-                nc->setId(id);
-            }
-        }
-        case 2: {
-            int capacidade = menuValidInput("Capacidade:", 0, 9999999);
-            nc->setCapacidade(capacidade);
-            break;
-        }
-        case 3: {
-            string marca; cout << "Marca: ";
-            cin.ignore();
-            getline(cin, marca);
-            nc->setMarca(marca);
-            break;
-        }
-        case 4: {
-            int tempmin = menuValidInput("Temperatura minima:", -1000, 1000);
-            nc->setTempMin(tempmin);
-            break;
-        }
-        }
-    }
-
-    else if (nn != nullptr) {
-        cout << "[0] Sair\n" << "[1] ID\n" << "[2] Capacidade\n" << "[3] Marca\n";
-        int option2 = menuValidInput("Opcao:", 0, 4);
-        switch (option2) {
-        case 0:
-            break;
-        case 1: {
-            int id = menuValidInput("ID:", 0, 9999999);
-            for (Camiao* x : e1.getCamioes()) {
-                if (id == x->getId()) {
-                    cout << "Valor invalido de identificador\n";
-                    break;
-                }
-                nc->setId(id);
-            }
-        }
-        case 2: {
-            int capacidade = menuValidInput("Capacidade:", 0, 9999999);
-            nc->setCapacidade(capacidade);
-            break;
-        }
-        case 3: {
-            string marca;
-            cout << "Marca: ";
-            cin.ignore();
-            getline(cin, marca);
-            nc->setMarca(marca);
-            break;
-        }
-        }
-    }
-
-    else if (na != nullptr) {
-        cout << "[0] Sair\n" << "[1] ID\n" << "[2] Capacidade\n" << "[3] Marca\n" << "[4] Numero de animais\n";
-        int option2 = menuValidInput("Opcao:", 0, 4);
-        switch (option2) {
-        case 0:
-            break;
-        case 1: {
-            int id = menuValidInput("ID:", 0, 9999999);
-            for (Camiao* x : e1.getCamioes()) {
-                if (id == x->getId()) {
-                    cout << "Valor invalido de identificador\n";
-                    break;
-                }
-                na->setId(id);
-            }
-        }
-        case 2: {
-            int capacidade = menuValidInput("Capacidade:", 0, 9999999);
-            na->setCapacidade(capacidade);
-            break;
-        }
-        case 3: {
-            string marca;
-            cout << "Marca: ";
-            cin.ignore();
-            getline(cin, marca);
-            na->setMarca(marca);
-            break;
-        }
-        case 4: {
-            int numAnimais = menuValidInput("Numero de animais:", 0, 1000);
-            na->setNumAnimais(numAnimais);
-            break;
-        }
-        }
-    }
-    */
 }
 
 void gerirCamioes(Empresa& e1) {
@@ -676,7 +534,7 @@ void gerirServicos(Empresa& e1){
             eliminarServicos(e1);
             e1.updateServicos();
             break;
-        default:gerirServicos(e1);
+        default: gerirServicos(e1);
     }
 }
 

@@ -8,9 +8,22 @@
 #include <vector>
 #include <fstream>
 #include <set>
+#include <unordered_set>
 #include <algorithm>
 #include "BST.h"
 using namespace std;
+
+struct inactiveClientHash {
+    int operator() (const Cliente& c1) const {
+        return 0;
+    }
+
+    bool operator() (const Cliente& c1, const Cliente& c2) const {
+        return c1.getNif() == c2.getNif();
+    }
+};
+
+typedef unordered_set<Cliente, inactiveClientHash, inactiveClientHash> HashTabInactiveClient;
 
 /**
  *  Representacao da empresa, funciona como uma base de dados para guardar todos os outros elementos relevantes
@@ -19,6 +32,7 @@ class Empresa {
     string nome;
     string filename;
     vector<Cliente> clientes;
+    HashTabInactiveClient inactiveClients;
     BST<Motorista> motoristas;
     vector<Camiao *> camioes;
     string clientes_ficheiro;

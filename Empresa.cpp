@@ -55,12 +55,13 @@ void Empresa::readClientes() {
     file.open(this->clientes_ficheiro);
     if (file.is_open() && !file.eof()){
         while (true){
-            string name, age_str, nif_str, packs_str,sep;
+            string name, age_str, nif_str, packs_str, disp, sep;
             getline(file, name);
             getline(file, age_str);
             getline(file, nif_str);
             getline(file, packs_str);
-            Cliente* p = new Cliente(name, stoi(age_str), stoi(nif_str), servicesBuilder(packs_str, this->servicos));
+            getline(file, disp);
+            Cliente* p = new Cliente(name, stoi(age_str), stoi(nif_str), servicesBuilder(packs_str, this->servicos), stoi(disp));
             for (ServicoTransporte st: p->getServicos()) eliminarServico(st);//o servico deixa de estar diponivel para outros clientes
             this->clientes.push_back(*p);
             if (file.eof()) break;
@@ -176,7 +177,8 @@ void Empresa::updateClientes() {
             file << c.getName() << endl;
             file << c.getAge() << endl;
             file << to_string(c.getNif()) << endl;
-            file << to_string_id(c.getServicos());
+            file << to_string_id(c.getServicos()) << endl;
+            file << to_string(c.getDisp());
             if (c.getNif() != clientes.at(clientes.size()-1).getNif()){
                 file << endl << separator << endl;
             }
@@ -611,26 +613,6 @@ double Empresa::calcularLucroMensal() { //associado ao mes presente no tempo rea
     }
     return result;
 }
-/*
-vector< pair<ServicoTransporte, int>> Empresa::EstatisticasServicos() {
-    vector< pair<ServicoTransporte, int>> res;
-    for (ServicoTransporte st: servicos){
-        //pair <ServicoTransporte, int> p;
-        int total=0;
-        for (Cliente x: clientes){
-            auto it = find(x.getServicos().begin(), x.getServicos().end(), st);
-            if (it != x.getServicos().end()) total++;
-        }
-        pair <ServicoTransporte, int> p(st, total);
-        res.push_back(p);
-    }
-    sort(res.begin(), res.end(), [](pair<ServicoTransporte, int> a, pair<ServicoTransporte, int> b){
-        return a.second < b.second;
-    });
-    for (auto it = res.begin(); it != res.end(); it++)
-        cout << it->first << "Adquirido por " << it->second << " clientes\n";
-    return res;
-}*/
 
 bool Empresa::isAvailable(Camiao* ca, ServicoTransporte st){
     for (ServicoTransporte ser: servicos){

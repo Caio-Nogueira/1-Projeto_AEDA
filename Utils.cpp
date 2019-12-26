@@ -590,3 +590,17 @@ Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx){
     return m;
 
 }
+
+int dispCheck(Cliente c1) {
+    for (auto s : c1.getServicos()) {
+        int ano = s.getDate().ano;
+        int mes = s.getDate().mes;
+        int dia = s.getDate().dia;
+        ano += 1;
+        Date d1;
+        d1.ano = ano; d1.mes = mes; d1.dia = dia;
+        if (!(d1 < getCurrentTime()))
+            return 1;
+    }
+    return 0;
+}

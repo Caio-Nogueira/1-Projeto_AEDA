@@ -135,7 +135,7 @@ public:
 	* @param age Idade da pessoa
 	* @return Person Pessoa criada
 	*/
-    Person(string name, int age);	
+    Person(string name, int age);
 	/**
 	* @brief Retorna o nome da pessoa
 	*
@@ -172,6 +172,7 @@ public:
 class Cliente: public Person{
 private:
     int nif;
+    int disponivel;
     vector<ServicoTransporte> servicos_adquiridos;
 public:	
 	/**
@@ -185,7 +186,12 @@ public:
 	*
 	* @param nif Novo valor a ser usado
 	*/
-    void setNif (int nif);	
+    void setNif (int nif);
+
+    void setDisp(int disp);
+
+    int getDisp() const;
+
 	/**
 	* @brief Muda os servicos adquiridos pelo cliente
 	*
@@ -213,7 +219,7 @@ public:
 	* @param servicos_adquiridos Servicos adquiridos pelo cliente
 	* @return Cliente Cliente criado
 	*/
-    Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos);
+    Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos, int disponivel);
 	/**
 	* @brief Construtor alternativo de um cliente, assumindo que tem 0 servicos adquiridos
 	*
@@ -222,7 +228,7 @@ public:
 	* @param nif NIF do cliente
 	* @return Cliente Cliente criado
 	*/
-    Cliente(string name, int age, int nif);
+    Cliente(string name, int age, int nif, int disponivel);
 	/**
 	* @brief Overload do operador == para averiguar a igualdade de 2 clientes
 	*

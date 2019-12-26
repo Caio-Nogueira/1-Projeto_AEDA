@@ -237,3 +237,5 @@ string menuDateInput(string mensagem);
 int BinarySearch(const vector<char> &v, char x);
 
 Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx);
+
+int dispCheck(Cliente c1);

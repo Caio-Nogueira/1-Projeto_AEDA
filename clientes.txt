@@ -2,83 +2,100 @@ Rui Almeida
 65
 123456789
 2 ; 3 ; 9
+1
 :::::
 Caio Nogueira
 19
 257115412
+1
 1
 :::::
 Jose
 20
 123412345
 -
+0
 :::::
 Carlos
 19
 987654321
 -
+0
 :::::
 Andreia
 40
 918273645
 -
+0
 :::::
 Soraia
 19
 192837465
 -
+0
 :::::
 Diogo
 19
 876543219
 -
+0
 :::::
 Pedro Queiros
 19
 765432189
 -
+0
 :::::
 Carlos Lousada
 19
 654321789
 -
+0
 :::::
 David Rocha
 19
 543216789
 -
+0
 :::::
 Fernando
 23
 98765432
 -
+0
 :::::
 Daniel Oliveira
 19
 102938476
 -
+0
 :::::
 Telmo Botelho
 19
 198765432
 -
+0
 :::::
 Travis Scott
 30
 432109876
 12
+1
 :::::
 Tomas Mendes
 26
 123456780
 -
+0
 :::::
 Pedro Souto
 48
 231456789
 -
+0
 :::::
 Marcus
 37
 980043176
 -
+0

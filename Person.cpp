@@ -14,14 +14,20 @@ void Person::setAge(int age) {this->age = age;}
 
 void Person::setName(string name) {this->name = name;}
 
-Cliente::Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos) : Person(name,age){
+Cliente::Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos, int disponivel) : Person(name,age){
     this->nif = nif;
     this->servicos_adquiridos = servicos_adquiridos;
+    this->disponivel = disponivel;
 }
 
-Cliente::Cliente(string name, int age, int nif): Person(name, age) {
+Cliente::Cliente(string name, int age, int nif, int disponivel): Person(name, age) {
     this->nif = nif;
+    this->disponivel = disponivel;
 }
+
+void Cliente::setDisp(int disp) {this->disponivel = disp;}
+
+int Cliente::getDisp() const {return disponivel;}
 
 int Cliente::getNif() const { return nif;}
 
@@ -170,6 +176,8 @@ string MotoristaRepetido::getName() const {return name;}
 int MotoristaRepetido::getId() const {return id;}
 
 bool Motorista::operator<(const Motorista& m) const {
+    if (this->getTotalHoras() < m.getTotalHoras())
+        return this->getName() < m.getName();
     return this->total_horas < m.total_horas;
 }
 
