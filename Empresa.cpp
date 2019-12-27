@@ -38,6 +38,7 @@ Empresa::Empresa(string filename) : motoristas(Motorista("", 0, 0, {"0","0"}, {}
         getline(file, camioes_ficheiro);
         getline(file, distancias_ficheiro);
         getline(file, servicos_ficheiro);
+        getline(file, oficinas_ficheiro);
     }
     file.close();
     readCamioes();
@@ -45,8 +46,8 @@ Empresa::Empresa(string filename) : motoristas(Motorista("", 0, 0, {"0","0"}, {}
     readClientes();
     readDistancias();
     readMotoristas();
+    readOficinas();
     this->numCamioes = camioes.size();
-    //sortCamioes();
 }
 
 void Empresa::readClientes() {
@@ -639,6 +640,7 @@ void Empresa::setDisponivel(ServicoTransporte st) {
     }
 }
 
+
 void Empresa::atualizaClientesInativos() {
     for (Cliente c: clientes){
         if (dispCheck(c) == 0){
@@ -648,3 +650,47 @@ void Empresa::atualizaClientesInativos() {
     }
 }
 
+void Empresa::readOficinas() {
+    priority_queue <Oficina> result;
+    ifstream file;
+    file.open(oficinas_ficheiro);
+    if (file.is_open()){
+        while (true){
+            string nome, marcas_string, disp_str, sep;
+            getline(file, nome);
+            getline(file, marcas_string);
+            list <string> marcas = listStringSplit(marcas_string, ' ');
+            getline(file, disp_str);
+            unsigned  d = (unsigned) stoi(disp_str);
+            Oficina* o = new Oficina(nome, marcas, d);
+            oficinas.push(*o);
+            if (file.eof()) break;
+            else getline(file, sep);
+        }
+    }
+    else{
+        cerr << "Error opening file\n";
+    }
+
+}
+
+priority_queue<Oficina> Empresa::getOficinas() const {return oficinas;}
+
+
+void Empresa::updateOficinas() {
+    ofstream file;
+    priority_queue <Oficina> aux = oficinas;
+    string separator = ":::::";
+    file.open(oficinas_ficheiro);
+    if (file.is_open()){
+        while (!aux.empty()){
+            Oficina current = aux.top();
+            file << current.getNome() << endl;
+            file << toStringMarcas(current.getMarcas()) << endl;
+            file << to_string((int) current.getDisponibilidade());
+            aux.pop();
+            if (aux.empty()) break;
+            file << endl << separator << endl;
+        }
+    }
+}

@@ -617,3 +617,25 @@ bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst){
     int last = *max_element(dates.begin(), dates.end());
     return current - last > 365; //ultimo servico ocorre ha mais de um ano ==> cliente inativo
 }
+
+list<string> listStringSplit(string fullstring, char delimiter){
+    list<string> result;
+    size_t aux;
+    fullstring.push_back(delimiter);
+    while (!fullstring.empty()) {
+        aux = fullstring.find(delimiter);
+        result.push_back(removeSpaces(fullstring.substr(0, aux)));
+        fullstring = fullstring.substr(aux, fullstring.npos);
+        fullstring.erase(0,1);
+    }
+    return result;
+}
+
+string toStringMarcas(list <string> marcas){
+    stringstream ss;
+    for (string str: marcas){
+        ss << str << " ";
+    }
+    string result = ss.str();
+    return result.substr(0, result.size()-1);
+}

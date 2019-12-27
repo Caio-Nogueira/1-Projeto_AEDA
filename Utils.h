@@ -9,6 +9,7 @@
 #include <ctime>
 #include "Person.h"
 #include "BST.h"
+#include <list>
 using namespace std;
 
 /**
@@ -241,3 +242,7 @@ Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx);
 int dispCheck(Cliente c1);
 
 bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst);
+
+list<string> listStringSplit(string fullstring, char delimiter);
+
+string toStringMarcas(list <string> marcas);

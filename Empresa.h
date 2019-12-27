@@ -11,6 +11,7 @@
 #include <unordered_set>
 #include <algorithm>
 #include "BST.h"
+#include "Oficina.h"
 using namespace std;
 
 struct inactiveClientHash {
@@ -40,11 +41,12 @@ class Empresa {
     string camioes_ficheiro;
     string distancias_ficheiro;
     string servicos_ficheiro;
+    string oficinas_ficheiro;
     vector<ServicoTransporte> servicos;
     int numCamioes;
     map<pair<string, string>, double> distancias; // Distancias entre as cidades onde opera a empresa
     std::set<string> localizacoes; // Localizacoes onde a empresa opera
-
+    priority_queue <Oficina> oficinas;
 public:
     /**
     * @brief Construtor da base de dados da empresa
@@ -95,6 +97,11 @@ public:
     * @return map <pair<string,string>,double> Rotas entre locais da empresa
     */
     map<pair<string, string>, double> getDistancias() const;
+    /**
+     * @brief retorna a fila de prioridade com as oficinas utilizadas pela empresa
+     * @return priority queue com as oficinas
+     */
+    priority_queue<Oficina> getOficinas() const;
 
     /**
     * @brief Retorna os servicos registados na empresa
@@ -301,4 +308,12 @@ public:
      * @brief Atualiza os clientes cujo ultimo serviço adquirido ocorreu ha mais de 1 ano
      */
     void atualizaClientesInativos();
+    /**
+     * Le informacao relativa as oficinas utilizadas pela empresa
+     */
+    void readOficinas();
+    /**
+     * @brief atualiza no ficheiro das oficinas a informaçao acerca das mesmas
+     */
+    void updateOficinas();
 };
