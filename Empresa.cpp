@@ -656,13 +656,15 @@ void Empresa::readOficinas() {
     file.open(oficinas_ficheiro);
     if (file.is_open()){
         while (true){
-            string nome, marcas_string, disp_str, sep;
+            string nome, marcas_string, disp_str, sep, date_str;
             getline(file, nome);
             getline(file, marcas_string);
             list <string> marcas = listStringSplit(marcas_string, ' ');
             getline(file, disp_str);
+            getline(file, date_str);
             unsigned  d = (unsigned) stoi(disp_str);
             Oficina* o = new Oficina(nome, marcas, d);
+            o->setDisponibilidade(d); //atualizar data no ficheiro
             oficinas.push(*o);
             if (file.eof()) break;
             else getline(file, sep);
@@ -671,7 +673,6 @@ void Empresa::readOficinas() {
     else{
         cerr << "Error opening file\n";
     }
-
 }
 
 priority_queue<Oficina> Empresa::getOficinas() const {return oficinas;}
@@ -687,10 +688,32 @@ void Empresa::updateOficinas() {
             Oficina current = aux.top();
             file << current.getNome() << endl;
             file << toStringMarcas(current.getMarcas()) << endl;
-            file << to_string((int) current.getDisponibilidade());
+            file << to_string((int) current.getDisponibilidade()) << endl;
+            file << toStringDate(current.getDateAvailable());
             aux.pop();
             if (aux.empty()) break;
             file << endl << separator << endl;
         }
     }
 }
+
+
+void Empresa::subscreveServicoOficina(string tipoServico, Oficina& o1) {
+    priority_queue <Oficina> aux;
+    vector <Oficina> oficinas_vector;
+    while (!aux.empty()){
+        Oficina copia = aux.top();
+        if (!(copia == o1)){
+            oficinas_vector.push_back(copia);
+        }
+        aux.pop();
+    }
+    unsigned disp = o1.getDisponibilidade();
+    if (tipoServico == "revisao") o1.setDisponibilidade(disp+2);
+    else if (tipoServico == "mudanca oleo") o1.setDisponibilidade(disp+3);
+    else if (tipoServico == "substituicao peca") o1.setDisponibilidade(disp+4);
+    while (!oficinas.empty()) oficinas.pop();
+    for (Oficina o: oficinas_vector) oficinas.push(o);
+    oficinas.push(o1);
+}
+

@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "ServicoTransporte.h"
+#include "Utils.h"
 using namespace std;
 
 class Oficina{
@@ -9,6 +11,7 @@ private:
     string nome;
     list <string> marcas;
     unsigned disponibilidade;
+    Date next_available_date;
 public:
     Oficina(string nome, list<string> marcas, unsigned disponibilidade);
 
@@ -23,6 +26,10 @@ public:
     unsigned  getDisponibilidade() const;
 
     void setDisponibilidade(unsigned d);
+
+    Date getDateAvailable() const;
+
+    void setDateAvailable( const Date& d1);
 
     bool operator==(const Oficina& o1);
 

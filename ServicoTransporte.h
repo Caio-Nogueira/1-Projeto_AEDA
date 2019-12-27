@@ -25,6 +25,10 @@ struct Date{
 	* @return bool True se a primeira data e menor que a segunda, caso contrario false
 	*/
     bool operator <(const Date& d1);
+
+    Date operator +(const Date& d1);
+
+    Date addDays(unsigned& d);
 };
 
 /**

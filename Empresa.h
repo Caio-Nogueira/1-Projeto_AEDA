@@ -316,4 +316,6 @@ public:
      * @brief atualiza no ficheiro das oficinas a informaçao acerca das mesmas
      */
     void updateOficinas();
+
+    void subscreveServicoOficina(string tipoServico, Oficina& o1);
 };
