@@ -604,3 +604,16 @@ int dispCheck(Cliente c1) {
     }
     return 0;
 }
+
+bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst){
+    vector <int> dates;
+    int current = getCurrentTime().ano*365 + getCurrentTime().mes*30 + getCurrentTime().dia;
+    for (ServicoTransporte st: vst){
+        int elem = 365*st.getDate().ano;
+        elem += 30*st.getDate().mes;
+        elem += st.getDate().dia;
+        dates.push_back(elem);
+    }
+    int last = *max_element(dates.begin(), dates.end());
+    return current - last > 365; //ultimo servico ocorre ha mais de um ano ==> cliente inativo
+}

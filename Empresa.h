@@ -297,4 +297,8 @@ public:
     * @param st Servico a verificar
     */
     void setDisponivel(ServicoTransporte st);
+    /**
+     * @brief Atualiza os clientes cujo ultimo serviço adquirido ocorreu ha mais de 1 ano
+     */
+    void atualizaClientesInativos();
 };

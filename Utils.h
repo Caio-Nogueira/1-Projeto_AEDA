@@ -239,3 +239,5 @@ int BinarySearch(const vector<char> &v, char x);
 Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx);
 
 int dispCheck(Cliente c1);
+
+bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst);

@@ -638,3 +638,13 @@ void Empresa::setDisponivel(ServicoTransporte st) {
         if (*it == st && getCurrentTime() < st.getDate() && st.getCamioes().size() > 0) it->setDisponibilidade(1);
     }
 }
+
+void Empresa::atualizaClientesInativos() {
+    for (Cliente c: clientes){
+        if (dispCheck(c) == 0){
+            inactiveClients.insert(c);
+            c.setDisp(0);
+        }
+    }
+}
+
