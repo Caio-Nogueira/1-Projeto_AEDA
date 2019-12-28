@@ -10,6 +10,12 @@ using namespace std;
 int main() {
     string file = "../empresa.txt";
     Empresa e1(file);
-    mainMenu(e1);
+    //mainMenu(e1);
+    e1.updateOficinas();
+    /*list<string> teste;
+    teste.push_back("SEAT");
+    teste.push_back("IBIZA");
+    teste.push_back("Mercedes");
+    cout << toStringMarcas(teste);*/
     return 0;
 }

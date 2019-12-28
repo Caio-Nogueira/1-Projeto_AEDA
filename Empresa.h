@@ -89,11 +89,6 @@ public:
     *
     * @return BST<Motorista> Motoristas da empresa
     */
-
-    HashTabInactiveClient getInactive() const;
-
-    void arrangeClients(vector<Cliente> cli);
-
     BST<Motorista> getMotoristas() const;
 
     /**
@@ -102,11 +97,10 @@ public:
     * @return map <pair<string,string>,double> Rotas entre locais da empresa
     */
     map<pair<string, string>, double> getDistancias() const;
-
     /**
-    * @brief retorna a fila de prioridade com as oficinas utilizadas pela empresa
-    * @return priority queue com as oficinas
-    */
+     * @brief retorna a fila de prioridade com as oficinas utilizadas pela empresa
+     * @return priority queue com as oficinas
+     */
     priority_queue<Oficina> getOficinas() const;
 
     /**
@@ -310,20 +304,17 @@ public:
     * @param st Servico a verificar
     */
     void setDisponivel(ServicoTransporte st);
-
     /**
-    * @brief Atualiza os clientes cujo ultimo serviço adquirido ocorreu ha mais de 1 ano
-    */
+     * @brief Atualiza os clientes cujo ultimo serviço adquirido ocorreu ha mais de 1 ano
+     */
     void atualizaClientesInativos();
-
     /**
-    * Le informacao relativa as oficinas utilizadas pela empresa
-    */
+     * Le informacao relativa as oficinas utilizadas pela empresa
+     */
     void readOficinas();
-
     /**
-    * @brief atualiza no ficheiro das oficinas a informaçao acerca das mesmas
-    */
+     * @brief atualiza no ficheiro das oficinas a informaçao acerca das mesmas
+     */
     void updateOficinas();
 
     void subscreveServicoOficina(string tipoServico, Oficina& o1);
