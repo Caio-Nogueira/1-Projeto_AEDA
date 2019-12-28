@@ -4,3 +4,4 @@ Transportes EuroTruck
 ../camioes.txt
 ../distancias.txt
 ../servicos.txt
+../oficinas.txt

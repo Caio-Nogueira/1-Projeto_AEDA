@@ -476,59 +476,6 @@ Date getCurrentTime(){
 }
 
 bool DateVerifier(string date){
-    /*unsigned aux = 0;
-    if (date.length() == 8) {
-        for (char c : date) {
-            if (aux == 1 || aux == 3) {
-                if (c != '/') return false;
-            }
-            else {
-                if (!isdigit(c)) return false;
-            }
-            aux++;
-        }
-        return true;
-    }
-    else if (date.length() == 10) {
-        for (char c : date) {
-            if (aux == 2 || aux == 5) {
-                if (c != '/') return false;
-            }
-            else {
-                if (!isdigit(c)) return false;
-            }
-            aux++;
-        }
-        return true;
-    }
-    else {
-        if (date.at(1) == '/') {
-            for (char c : date) {
-                if (aux == 1 || aux == 4) {
-                    if (c != '/') return false;
-                }
-                else {
-                    if (!isdigit(c)) return false;
-                }
-                aux++;
-            }
-            return true;
-        }
-        else if (date.at(4) == '/'){
-            for (char c : date) {
-                if (aux == 2 || aux == 4) {
-                    if (c != '/') return false;
-                }
-                else {
-                    if (!isdigit(c)) return false;
-                }
-                aux++;
-            }
-            return true;
-        }
-        else return false;
-    }
-    return false;*/
     unsigned aux = 0;
     if (date.length() == 10) {
         for (char c : date) {
@@ -591,7 +538,7 @@ Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx){
 
 }
 
-int dispCheck(Cliente c1) {
+int activeCheck(Cliente c1) {
     for (auto s : c1.getServicos()) {
         int ano = s.getDate().ano;
         int mes = s.getDate().mes;
@@ -605,7 +552,7 @@ int dispCheck(Cliente c1) {
     return 0;
 }
 
-bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst){
+/*bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst){
     vector <int> dates;
     int current = getCurrentTime().ano*365 + getCurrentTime().mes*30 + getCurrentTime().dia;
     for (ServicoTransporte st: vst){
@@ -616,4 +563,26 @@ bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst){
     }
     int last = *max_element(dates.begin(), dates.end());
     return current - last > 365; //ultimo servico ocorre ha mais de um ano ==> cliente inativo
+}*/
+
+list<string> listStringSplit(string fullstring, char delimiter){
+    list<string> result;
+    size_t aux;
+    fullstring.push_back(delimiter);
+    while (!fullstring.empty()) {
+        aux = fullstring.find(delimiter);
+        result.push_back(removeSpaces(fullstring.substr(0, aux)));
+        fullstring = fullstring.substr(aux, fullstring.npos);
+        fullstring.erase(0,1);
+    }
+    return result;
+}
+
+string toStringMarcas(list <string> marcas){
+    stringstream ss;
+    for (string str: marcas){
+        ss << str << " ";
+    }
+    string result = ss.str();
+    return result.substr(0, result.size()-1);
 }

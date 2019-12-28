@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Empresa.cpp" "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/Projeto_AEDA.dir/Empresa.cpp.obj"
+  "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Oficina.cpp" "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.obj"
   "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Person.cpp" "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/Projeto_AEDA.dir/Person.cpp.obj"
   "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/ServicoTransporte.cpp" "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/Projeto_AEDA.dir/ServicoTransporte.cpp.obj"
   "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Utils.cpp" "C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/Projeto_AEDA.dir/Utils.cpp.obj"

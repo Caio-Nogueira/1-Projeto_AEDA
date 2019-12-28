@@ -172,7 +172,7 @@ public:
 class Cliente: public Person{
 private:
     int nif;
-    int disponivel;
+    int active;
     vector<ServicoTransporte> servicos_adquiridos;
 public:	
 	/**
@@ -188,9 +188,9 @@ public:
 	*/
     void setNif (int nif);
 
-    void setDisp(int disp);
+    void setActive(int act);
 
-    int getDisp() const;
+    int getActive() const;
 
 	/**
 	* @brief Muda os servicos adquiridos pelo cliente
@@ -219,7 +219,7 @@ public:
 	* @param servicos_adquiridos Servicos adquiridos pelo cliente
 	* @return Cliente Cliente criado
 	*/
-    Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos, int disponivel);
+    Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos, int act);
 	/**
 	* @brief Construtor alternativo de um cliente, assumindo que tem 0 servicos adquiridos
 	*
@@ -228,7 +228,7 @@ public:
 	* @param nif NIF do cliente
 	* @return Cliente Cliente criado
 	*/
-    Cliente(string name, int age, int nif, int disponivel);
+    Cliente(string name, int age, int nif, int act);
 	/**
 	* @brief Overload do operador == para averiguar a igualdade de 2 clientes
 	*

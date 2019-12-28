@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Empresa.h">
 			<Option target="Projeto_AEDA"/>
 		</Unit>
+		<Unit filename="C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Oficina.cpp">
+			<Option target="Projeto_AEDA"/>
+		</Unit>
+		<Unit filename="C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Oficina.h">
+			<Option target="Projeto_AEDA"/>
+		</Unit>
 		<Unit filename="C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/Person.cpp">
 			<Option target="Projeto_AEDA"/>
 		</Unit>

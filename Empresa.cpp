@@ -9,17 +9,17 @@ using namespace std;
 
 vector <Cliente> Empresa::getClientes() const {return clientes;}
 
+HashTabInactiveClient Empresa::getInactive() const {return inactiveClients;}
+
 BST <Motorista> Empresa::getMotoristas() const {return motoristas;}
+
+priority_queue<Oficina> Empresa::getOficinas() const {return oficinas;}
 
 string Empresa::getName() const {return nome;}
 
-void Empresa::setClientes(vector<Cliente> clientes) {
-    this->clientes = clientes;
-}
+void Empresa::setClientes(vector<Cliente> clientes) {this->clientes = clientes;}
 
-void Empresa::setMotoristas(BST<Motorista> motoristas) {
-    this->motoristas = motoristas;
-}
+void Empresa::setMotoristas(BST<Motorista> motoristas) {this->motoristas = motoristas;}
 
 void Empresa::setServicos(vector<ServicoTransporte> st) {this->servicos = st;}
 
@@ -38,6 +38,7 @@ Empresa::Empresa(string filename) : motoristas(Motorista("", 0, 0, {"0","0"}, {}
         getline(file, camioes_ficheiro);
         getline(file, distancias_ficheiro);
         getline(file, servicos_ficheiro);
+        getline(file, oficinas_ficheiro);
     }
     file.close();
     readCamioes();
@@ -45,8 +46,8 @@ Empresa::Empresa(string filename) : motoristas(Motorista("", 0, 0, {"0","0"}, {}
     readClientes();
     readDistancias();
     readMotoristas();
+    readOficinas();
     this->numCamioes = camioes.size();
-    //sortCamioes();
 }
 
 void Empresa::readClientes() {
@@ -55,18 +56,37 @@ void Empresa::readClientes() {
     file.open(this->clientes_ficheiro);
     if (file.is_open() && !file.eof()){
         while (true){
-            string name, age_str, nif_str, packs_str, disp, sep;
+            string name, age_str, nif_str, packs_str, active, sep;
             getline(file, name);
             getline(file, age_str);
             getline(file, nif_str);
             getline(file, packs_str);
-            getline(file, disp);
-            Cliente* p = new Cliente(name, stoi(age_str), stoi(nif_str), servicesBuilder(packs_str, this->servicos), stoi(disp));
+            getline(file, active);
+            Cliente* p = new Cliente(name, stoi(age_str), stoi(nif_str), servicesBuilder(packs_str, this->servicos), stoi(active));
             for (ServicoTransporte st: p->getServicos()) eliminarServico(st);//o servico deixa de estar diponivel para outros clientes
-            this->clientes.push_back(*p);
+            if (activeCheck(*p)) clientes.push_back(*p);
+            else inactiveClients.insert(*p);
             if (file.eof()) break;
             else getline(file, sep);
         }
+    }
+}
+
+void Empresa::atualizaClientesInativos() {
+    for (Cliente c: clientes){
+        if (activeCheck(c) == 0){
+            inactiveClients.insert(c);
+            c.setActive(0);
+        }
+    }
+}
+
+void Empresa::arrangeClients(vector<Cliente> cli) {
+    clientes.clear();
+    inactiveClients.clear();
+    for (auto it = cli.begin(); it != cli.end(); it++) {
+        if (activeCheck(*it)) clientes.push_back(*it);
+        else inactiveClients.insert(*it);
     }
 }
 
@@ -172,14 +192,16 @@ void Empresa::updateClientes() {
     ofstream file;
     string separator = ":::::";
     file.open(this->clientes_ficheiro);
+    vector<Cliente> copia = clientes;
+    copia.insert(copia.end(), inactiveClients.begin(), inactiveClients.end());
     if (file.is_open()){
-        for (Cliente c: clientes){
+        for (Cliente c: copia){
             file << c.getName() << endl;
             file << c.getAge() << endl;
             file << to_string(c.getNif()) << endl;
             file << to_string_id(c.getServicos()) << endl;
-            file << to_string(c.getDisp());
-            if (c.getNif() != clientes.at(clientes.size()-1).getNif()){
+            file << to_string(c.getActive());
+            if (c.getNif() != copia.at(copia.size()-1).getNif()){
                 file << endl << separator << endl;
             }
         }
@@ -312,6 +334,48 @@ void Empresa::updateMotoristas() {
     }
 }
 
+void Empresa::readOficinas() {
+    ifstream file;
+    file.open(oficinas_ficheiro);
+    if (file.is_open()){
+        while (true){
+            string nome, marcas_string, disp_str, date_str, sep;
+            getline(file, nome);
+            getline(file, marcas_string);
+            list <string> marcas = listStringSplit(marcas_string, ' ');
+            getline(file, disp_str);
+            getline(file, date_str);
+            unsigned  d = (unsigned) stoi(disp_str);
+            Oficina* o = new Oficina(nome, marcas, d);
+            o->setDisponibilidade(d);
+            oficinas.push(*o);
+            if (file.eof()) break;
+            else getline(file, sep);
+        }
+    }
+    else{
+        cerr << "Error opening file\n";
+    }
+}
+
+void Empresa::updateOficinas() {
+    ofstream file;
+    priority_queue <Oficina> aux = oficinas;
+    string separator = ":::::";
+    file.open(oficinas_ficheiro);
+    if (file.is_open()){
+        while (!aux.empty()){
+            Oficina current = aux.top();
+            file << current.getNome() << endl;
+            file << toStringMarcas(current.getMarcas()) << endl;
+            file << to_string((int) current.getDisponibilidade()) << endl;
+            file << toStringDate(current.getDateAvailable());
+            aux.pop();
+            if (aux.empty()) break;
+            file << endl << separator << endl;
+        }
+    }
+}
 
 void Empresa::readDistancias() {
     ifstream file;
@@ -337,21 +401,20 @@ void Empresa::adicionarCliente(Cliente novoCliente) {
         if (c == novoCliente)
             throw ClienteRepetido(novoCliente.getName(), novoCliente.getAge());
     }
-    this->clientes.push_back(novoCliente);
+    this->inactiveClients.insert(novoCliente);
 }
 
 void Empresa::eliminarCliente(Cliente cli) {
     size_t control = clientes.size();
     for (auto it = clientes.begin(); it != clientes.end(); it) {
         if (*it == cli) {
-            for (ServicoTransporte st: it->getServicos()){
+            for (ServicoTransporte st: it->getServicos()) {
                 if (getCurrentTime() < st.getDate())
                     setDisponivel(st);
             }
             cout << "Cliente eliminado: " << cli.getName() << endl;
             it = clientes.erase(it);
-        }
-        else it++;
+        } else it++;
     }
     if (control == clientes.size()) //vetor permanece intacto => nenhum cliente removido
         throw (ClienteInexistente(cli.getName(), cli.getNif()));
@@ -639,12 +702,22 @@ void Empresa::setDisponivel(ServicoTransporte st) {
     }
 }
 
-void Empresa::atualizaClientesInativos() {
-    for (Cliente c: clientes){
-        if (dispCheck(c) == 0){
-            inactiveClients.insert(c);
-            c.setDisp(0);
+void Empresa::subscreveServicoOficina(string tipoServico, Oficina& o1) {
+    priority_queue <Oficina> aux;
+    vector <Oficina> oficinas_vector;
+    while (!aux.empty()){
+        Oficina copia = aux.top();
+        if (!(copia == o1)){
+            oficinas_vector.push_back(copia);
         }
+        aux.pop();
     }
+    unsigned disp = o1.getDisponibilidade();
+    if (tipoServico == "revisao") o1.setDisponibilidade(disp+2);
+    else if (tipoServico == "mudanca oleo") o1.setDisponibilidade(disp+3);
+    else if (tipoServico == "substituicao peca") o1.setDisponibilidade(disp+4);
+    while (!oficinas.empty()) oficinas.pop();
+    for (Oficina o: oficinas_vector) oficinas.push(o);
+    oficinas.push(o1);
 }
 

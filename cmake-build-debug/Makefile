@@ -149,6 +149,33 @@ Empresa.cpp.s:
 	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Empresa.cpp.s
 .PHONY : Empresa.cpp.s
 
+Oficina.obj: Oficina.cpp.obj
+
+.PHONY : Oficina.obj
+
+# target to build an object file
+Oficina.cpp.obj:
+	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.obj
+.PHONY : Oficina.cpp.obj
+
+Oficina.i: Oficina.cpp.i
+
+.PHONY : Oficina.i
+
+# target to preprocess a source file
+Oficina.cpp.i:
+	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.i
+.PHONY : Oficina.cpp.i
+
+Oficina.s: Oficina.cpp.s
+
+.PHONY : Oficina.s
+
+# target to generate assembly for a file
+Oficina.cpp.s:
+	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.s
+.PHONY : Oficina.cpp.s
+
 Person.obj: Person.cpp.obj
 
 .PHONY : Person.obj
@@ -323,6 +350,9 @@ help:
 	@echo ... Empresa.obj
 	@echo ... Empresa.i
 	@echo ... Empresa.s
+	@echo ... Oficina.obj
+	@echo ... Oficina.i
+	@echo ... Oficina.s
 	@echo ... Person.obj
 	@echo ... Person.i
 	@echo ... Person.s

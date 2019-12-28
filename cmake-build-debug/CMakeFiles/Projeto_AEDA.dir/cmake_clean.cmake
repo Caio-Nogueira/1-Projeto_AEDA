@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Projeto_AEDA.dir/Empresa.cpp.obj"
+  "CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.obj"
   "CMakeFiles/Projeto_AEDA.dir/Person.cpp.obj"
   "CMakeFiles/Projeto_AEDA.dir/ServicoTransporte.cpp.obj"
   "CMakeFiles/Projeto_AEDA.dir/Utils.cpp.obj"

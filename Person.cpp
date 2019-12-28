@@ -14,20 +14,20 @@ void Person::setAge(int age) {this->age = age;}
 
 void Person::setName(string name) {this->name = name;}
 
-Cliente::Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos, int disponivel) : Person(name,age){
+Cliente::Cliente(string name, int age, int nif, vector<ServicoTransporte> servicos_adquiridos, int act) : Person(name,age){
     this->nif = nif;
     this->servicos_adquiridos = servicos_adquiridos;
-    this->disponivel = disponivel;
+    this->active = act;
 }
 
-Cliente::Cliente(string name, int age, int nif, int disponivel): Person(name, age) {
+Cliente::Cliente(string name, int age, int nif, int act): Person(name, age) {
     this->nif = nif;
-    this->disponivel = disponivel;
+    this->active = act;
 }
 
-void Cliente::setDisp(int disp) {this->disponivel = disp;}
+void Cliente::setActive(int act) {this->active = act;}
 
-int Cliente::getDisp() const {return disponivel;}
+int Cliente::getActive() const {return active;}
 
 int Cliente::getNif() const { return nif;}
 

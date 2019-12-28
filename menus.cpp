@@ -4,7 +4,7 @@
 using namespace std;
 
 void adicionarClientes(Empresa& e1){
-    string nome, Servicos_adquiridos_str;
+    string nome;
     cout << "Nome:";
     getline(cin, nome);
     nome = removeSpaces(nome);
@@ -26,18 +26,20 @@ void adicionarClientes(Empresa& e1){
 void editarClientes(Empresa& e1){
     int option;
     int idx;
+    vector<Cliente> copia = e1.getClientes();
+    copia.insert(copia.end(), e1.getInactive().begin(), e1.getInactive().end());
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    for (size_t i = 1; i <= e1.getClientes().size(); i++){
-        cout << "[" << i << "] " << e1.getClientes().at(i-1);
+    for (size_t i = 1; i <= copia.size(); i++){
+        cout << "[" << i << "] " << copia.at(i-1);
         cout << "--------------------------------------------------" << endl;
     }
-    idx = menuValidInput("Selecione o cliente que pretende editar:",0, e1.getClientes().size());
+    idx = menuValidInput("Selecione o cliente que pretende editar:",0, copia.size());
     if (idx == 0) return;
     cout << "[0] Sair\n" << "[1] Nome\n" << "[2] Idade\n" << "[3] Nif\n" << "[4] Eliminar servicos adquiridos\n" << "[5] adicionar servicos adquiridos" << endl << endl;
     option = menuValidInput("Selecione o que pretende editar:", 0, 5);
     cout << "--------------------------------------------------" << endl;
-    switch(option) {
+    switch (option) {
         case 0:
             return;
         case 1: {
@@ -45,85 +47,80 @@ void editarClientes(Empresa& e1){
             cout << "Novo nome:";
             getline(cin, novo_nome);
             novo_nome = removeSpaces(novo_nome);
-            vector<Cliente> copia = e1.getClientes();
             copia.at(idx - 1).setName(novo_nome);
-            e1.setClientes(copia);
             break;
         }
         case 2: {
             int idadeN;
             idadeN = menuValidInput("Nova idade:", 18, 120);
-            vector<Cliente> copia = e1.getClientes();
             copia.at(idx - 1).setAge(idadeN);
-            e1.setClientes(copia);
             break;
         }
         case 3: {
             int Nnif;
             Nnif = inputNIF("Novo nif:");
-            vector<Cliente> copia = e1.getClientes();
             copia.at(idx - 1).setNif(Nnif);
-            e1.setClientes(copia);
             break;
         }
-        case 4:{
-            vector<Cliente> copia = e1.getClientes();
+        case 4: {
             cout << "[0] Voltar\n";
-            for (size_t i = 1; i <= e1.getClientes().at(idx-1).getServicos().size(); i++){
+            for (size_t i = 1; i <= e1.getClientes().at(idx - 1).getServicos().size(); i++) {
                 cout << "--------------------------------------------------" << endl;
-                cout << "[" << i << "]" << e1.getClientes().at(idx-1).getServicos().at(i-1);
+                cout << "[" << i << "]" << e1.getClientes().at(idx - 1).getServicos().at(i - 1);
             }
             cout << "--------------------------------------------------" << endl;
             int option2 = menuValidInput("Selecione o servico que pretende eliminar:", 0, GetMaxId(e1.getServicos()));
             if (option2 == 0) return;
-            vector <ServicoTransporte> st1 = e1.getClientes().at(idx-1).getServicos();
-            ServicoTransporte s = st1.at(option2-1);
-            st1.erase(st1.begin() + option2 -1);
-            copia.at(idx-1).setServicos(st1);
-            copia.at(idx-1).setDisp(dispCheck(copia.at(idx-1)));
-            e1.setClientes(copia);
+            vector<ServicoTransporte> st1 = copia.at(idx - 1).getServicos();
+            ServicoTransporte s = st1.at(option2 - 1);
             e1.setDisponivel(s);
+            st1.erase(st1.begin() + option2 - 1);
+            copia.at(idx - 1).setServicos(st1);
+            copia.at(idx - 1).setActive(activeCheck(copia.at(idx - 1)));
             break;
         }
         case 5: {
-            vector <Cliente> copia_clientes = e1.getClientes();
             cout << "[0] Sair\n";
-            for (size_t i = 1; i <= e1.servicosDisponiveis().size(); i++){
+            for (size_t i = 1; i <= e1.servicosDisponiveis().size(); i++) {
                 cout << "--------------------------------------------------" << endl;
-                cout << "[" << i << "]" << e1.servicosDisponiveis().at(i-1);
+                cout << "[" << i << "]" << e1.servicosDisponiveis().at(i - 1);
             }
             cout << "--------------------------------------------------" << endl;
-            int option = menuValidInput("Selecione o servico que pretende adquirir para este cliente:",0,e1.servicosDisponiveis().size());
-            if (option == 0) return;    //voltar ao menu anterior
-            vector <ServicoTransporte> v = e1.getClientes().at(idx-1).getServicos();
-            v.push_back(e1.servicosDisponiveis().at(option-1));
-            e1.eliminarServico(e1.servicosDisponiveis().at(option-1));
-            copia_clientes.at(idx-1).setServicos(v);
-            copia_clientes.at(idx-1).setDisp(dispCheck(copia_clientes.at(idx-1)));
-            e1.setClientes(copia_clientes);
+            int option = menuValidInput("Selecione o servico que pretende adquirir para este cliente:", 0, e1.servicosDisponiveis().size());
+            if (option == 0) return;
+            vector<ServicoTransporte> st1 = copia.at(idx - 1).getServicos();
+            st1.push_back(e1.servicosDisponiveis().at(option - 1));
+            e1.eliminarServico(e1.servicosDisponiveis().at(option - 1));
+            copia.at(idx - 1).setServicos(st1);
+            copia.at(idx - 1).setActive(activeCheck(copia.at(idx - 1)));
             break;
         }
-        default: break;
+        default:
+            break;
     }
+    e1.arrangeClients(copia);
     return;
 }
 
 
-void eliminarClientes(Empresa& e1){
-    vector<Cliente> copia = e1.getClientes();
+void eliminarClientes(Empresa& e1) {
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    for (size_t i = 1; i <= e1.getClientes().size(); i++){
-        cout << "[" << i << "] " << e1.getClientes().at(i-1);
+    vector<Cliente> copia = e1.getClientes();
+    copia.insert(copia.end(), e1.getInactive().begin(), e1.getInactive().end());
+    for (size_t i = 1; i <= copia.size(); i++) {
+        cout << "[" << i << "] " << copia.at(i - 1);
         cout << "--------------------------------------------------" << endl;
     }
-    int option = menuValidInput("Selecione o cliente:" ,0, e1.getClientes().size());
+    int option = menuValidInput("Selecione o cliente:", 0, copia.size());
     if (option == 0) return;
-    cout << e1.getClientes().at(option-1);
+    cout << copia.at(option-1);
+    e1.setClientes(copia);
     e1.eliminarCliente(e1.getClientes().at(option-1));
+    e1.arrangeClients(copia);
 }
 
-void gerirClientes(Empresa& e1){
+void gerirClientes(Empresa& e1) {
     cout << "= = = = = = = = = GERIR CLIENTES= = = = = = = = ==" << endl;
     int option;
     cout << "[0] => Sair\n";
@@ -719,7 +716,7 @@ void gerirMotoristas(Empresa& e1) {
     }
 }
 
-void mostrarCamioesTipo(Empresa& e1){
+void mostrarCamioesTipo(Empresa& e1) {
     vector <Camiao *> aux;
     string tipo = camioesTipoVerifier(e1.getCamioes(), aux);
     unsigned i = 0;
@@ -807,18 +804,20 @@ void mostrarInformacaoCamioes(Empresa& e1){
     }
 }
 
-void mostrarInformacaoClientes(Empresa& e1){
+void mostrarInformacaoClientes(Empresa& e1) {
     cout << "= = = = = = = ESTATISTICAS  CLIENTES = = = = = = =" << endl;
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
-    for (size_t i = 1; i <= e1.getClientes().size(); i++){
-        cout << "[" << i << "]\n" << e1.getClientes().at(i-1);
+    vector<Cliente> copia = e1.getClientes();
+    copia.insert(copia.end(), e1.getInactive().begin(), e1.getInactive().end());
+    for (size_t i = 1; i <= copia.size(); i++){
+        cout << "[" << i << "]\n" << copia.at(i-1);
         cout << "--------------------------------------------------" << endl;
     }
-    int option = menuValidInput("Selecione o cliente para ver informacao detalhada:", 0, e1.getClientes().size());
+    int option = menuValidInput("Selecione o cliente para ver informacao detalhada:", 0, copia.size());
     cout << endl;
     if (option == 0) return;
-    Cliente esc = e1.getClientes().at(option-1);
+    Cliente esc = copia.at(option - 1);
     cout << esc;
     cout << "Servicos de transporte adquiridos:";
     if (esc.getServicos().size() == 0) cout << " Ainda nao realizou nenhuma encomenda." << endl;
@@ -830,6 +829,7 @@ void mostrarInformacaoClientes(Empresa& e1){
             aux++;
         }
     }
+    e1.arrangeClients(copia);
 }
 
 void mostrarInformacaoServicos(Empresa& e1){
@@ -902,6 +902,7 @@ void Estatisticas(Empresa& e1){
 
 unsigned mainMenu(Empresa& e1) {
     cout << endl;
+    //e1.atualizaClientesInativos();
     cout << "====== BEM-VINDO A EMPRESA " << e1.getName() << "! ======" << endl;
     cout << "|| ================== MAIN MENU ==================" << endl;
     cout << "|| (0) Sair" << endl;
