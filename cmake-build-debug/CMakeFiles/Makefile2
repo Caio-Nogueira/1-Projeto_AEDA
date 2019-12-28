@@ -52,12 +52,12 @@ CMAKE_BINARY_DIR = C:\Users\migue\Desktop\Faculdade\AEDA\PROJ2\cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Projeto_AEDA.dir/all
+all: CMakeFiles/PROJ2.dir/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Projeto_AEDA.dir/clean
+clean: CMakeFiles/PROJ2.dir/clean
 
 .PHONY : clean
 
@@ -67,31 +67,31 @@ preinstall:
 .PHONY : preinstall
 
 #=============================================================================
-# Target rules for target CMakeFiles/Projeto_AEDA.dir
+# Target rules for target CMakeFiles/PROJ2.dir
 
 # All Build rule for target.
-CMakeFiles/Projeto_AEDA.dir/all:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/depend
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\migue\Desktop\Faculdade\AEDA\PROJ2\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target Projeto_AEDA"
-.PHONY : CMakeFiles/Projeto_AEDA.dir/all
+CMakeFiles/PROJ2.dir/all:
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/depend
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\migue\Desktop\Faculdade\AEDA\PROJ2\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target PROJ2"
+.PHONY : CMakeFiles/PROJ2.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Projeto_AEDA.dir/rule: cmake_check_build_system
+CMakeFiles/PROJ2.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\migue\Desktop\Faculdade\AEDA\PROJ2\cmake-build-debug\CMakeFiles 9
-	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/Projeto_AEDA.dir/all
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/PROJ2.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\migue\Desktop\Faculdade\AEDA\PROJ2\cmake-build-debug\CMakeFiles 0
-.PHONY : CMakeFiles/Projeto_AEDA.dir/rule
+.PHONY : CMakeFiles/PROJ2.dir/rule
 
 # Convenience name for target.
-Projeto_AEDA: CMakeFiles/Projeto_AEDA.dir/rule
+PROJ2: CMakeFiles/PROJ2.dir/rule
 
-.PHONY : Projeto_AEDA
+.PHONY : PROJ2
 
 # clean rule for target.
-CMakeFiles/Projeto_AEDA.dir/clean:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/clean
-.PHONY : CMakeFiles/Projeto_AEDA.dir/clean
+CMakeFiles/PROJ2.dir/clean:
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/clean
+.PHONY : CMakeFiles/PROJ2.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

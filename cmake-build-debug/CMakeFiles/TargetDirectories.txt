@@ -1,3 +1,3 @@
-C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/Projeto_AEDA.dir
+C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/PROJ2.dir
 C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/migue/Desktop/Faculdade/AEDA/PROJ2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

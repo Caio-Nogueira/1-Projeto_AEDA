@@ -6,7 +6,7 @@
 #include "Utils.h"
 using namespace std;
 
-class Oficina{
+class Oficina {
 private:
     string nome;
     list <string> marcas;

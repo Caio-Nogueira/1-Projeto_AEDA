@@ -1,6 +1,3 @@
-//
-// Created by caion on 27/12/2019.
-//
 #include "Oficina.h"
 #include <iostream>
 using namespace std;
@@ -30,13 +27,9 @@ void Oficina::setMarcas(list<string> marcas) {this->marcas = marcas;}
 
 void Oficina::setNome(const string nome) {this->nome = nome;}
 
-bool Oficina::operator==(const Oficina &o1) {
-    return this->getNome() == o1.nome && this->disponibilidade == o1.disponibilidade;
-}
+bool Oficina::operator==(const Oficina &o1) {return this->getNome() == o1.nome && this->disponibilidade == o1.disponibilidade;}
 
-bool Oficina::operator<(const Oficina &o1) const {
-    return this->disponibilidade > o1.disponibilidade;
-}
+bool Oficina::operator<(const Oficina &o1) const {return this->disponibilidade > o1.disponibilidade;}
 
 ostream& operator<<(ostream &out, const Oficina &o) {
     out << "Nome - " << o.nome << endl;
@@ -48,11 +41,6 @@ ostream& operator<<(ostream &out, const Oficina &o) {
     return  out;
 }
 
-Date Oficina::getDateAvailable() const {
-    return this->next_available_date;
-}
+Date Oficina::getDateAvailable() const {return this->next_available_date;}
 
-void Oficina::setDateAvailable(const Date &d1) {
-    this->next_available_date = d1;
-}
-
+void Oficina::setDateAvailable(const Date &d1) {this->next_available_date = d1;}

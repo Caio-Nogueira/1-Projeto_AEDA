@@ -110,17 +110,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Projeto_AEDA
+# Target rules for targets named PROJ2
 
 # Build rule for target.
-Projeto_AEDA: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 Projeto_AEDA
-.PHONY : Projeto_AEDA
+PROJ2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 PROJ2
+.PHONY : PROJ2
 
 # fast build rule for target.
-Projeto_AEDA/fast:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/build
-.PHONY : Projeto_AEDA/fast
+PROJ2/fast:
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/build
+.PHONY : PROJ2/fast
 
 Empresa.obj: Empresa.cpp.obj
 
@@ -128,7 +128,7 @@ Empresa.obj: Empresa.cpp.obj
 
 # target to build an object file
 Empresa.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Empresa.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Empresa.cpp.obj
 .PHONY : Empresa.cpp.obj
 
 Empresa.i: Empresa.cpp.i
@@ -137,7 +137,7 @@ Empresa.i: Empresa.cpp.i
 
 # target to preprocess a source file
 Empresa.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Empresa.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Empresa.cpp.i
 .PHONY : Empresa.cpp.i
 
 Empresa.s: Empresa.cpp.s
@@ -146,7 +146,7 @@ Empresa.s: Empresa.cpp.s
 
 # target to generate assembly for a file
 Empresa.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Empresa.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Empresa.cpp.s
 .PHONY : Empresa.cpp.s
 
 Oficina.obj: Oficina.cpp.obj
@@ -155,7 +155,7 @@ Oficina.obj: Oficina.cpp.obj
 
 # target to build an object file
 Oficina.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Oficina.cpp.obj
 .PHONY : Oficina.cpp.obj
 
 Oficina.i: Oficina.cpp.i
@@ -164,7 +164,7 @@ Oficina.i: Oficina.cpp.i
 
 # target to preprocess a source file
 Oficina.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Oficina.cpp.i
 .PHONY : Oficina.cpp.i
 
 Oficina.s: Oficina.cpp.s
@@ -173,7 +173,7 @@ Oficina.s: Oficina.cpp.s
 
 # target to generate assembly for a file
 Oficina.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Oficina.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Oficina.cpp.s
 .PHONY : Oficina.cpp.s
 
 Person.obj: Person.cpp.obj
@@ -182,7 +182,7 @@ Person.obj: Person.cpp.obj
 
 # target to build an object file
 Person.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Person.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Person.cpp.obj
 .PHONY : Person.cpp.obj
 
 Person.i: Person.cpp.i
@@ -191,7 +191,7 @@ Person.i: Person.cpp.i
 
 # target to preprocess a source file
 Person.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Person.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Person.cpp.i
 .PHONY : Person.cpp.i
 
 Person.s: Person.cpp.s
@@ -200,7 +200,7 @@ Person.s: Person.cpp.s
 
 # target to generate assembly for a file
 Person.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Person.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Person.cpp.s
 .PHONY : Person.cpp.s
 
 ServicoTransporte.obj: ServicoTransporte.cpp.obj
@@ -209,7 +209,7 @@ ServicoTransporte.obj: ServicoTransporte.cpp.obj
 
 # target to build an object file
 ServicoTransporte.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/ServicoTransporte.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/ServicoTransporte.cpp.obj
 .PHONY : ServicoTransporte.cpp.obj
 
 ServicoTransporte.i: ServicoTransporte.cpp.i
@@ -218,7 +218,7 @@ ServicoTransporte.i: ServicoTransporte.cpp.i
 
 # target to preprocess a source file
 ServicoTransporte.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/ServicoTransporte.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/ServicoTransporte.cpp.i
 .PHONY : ServicoTransporte.cpp.i
 
 ServicoTransporte.s: ServicoTransporte.cpp.s
@@ -227,7 +227,7 @@ ServicoTransporte.s: ServicoTransporte.cpp.s
 
 # target to generate assembly for a file
 ServicoTransporte.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/ServicoTransporte.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/ServicoTransporte.cpp.s
 .PHONY : ServicoTransporte.cpp.s
 
 Utils.obj: Utils.cpp.obj
@@ -236,7 +236,7 @@ Utils.obj: Utils.cpp.obj
 
 # target to build an object file
 Utils.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Utils.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Utils.cpp.obj
 .PHONY : Utils.cpp.obj
 
 Utils.i: Utils.cpp.i
@@ -245,7 +245,7 @@ Utils.i: Utils.cpp.i
 
 # target to preprocess a source file
 Utils.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Utils.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Utils.cpp.i
 .PHONY : Utils.cpp.i
 
 Utils.s: Utils.cpp.s
@@ -254,7 +254,7 @@ Utils.s: Utils.cpp.s
 
 # target to generate assembly for a file
 Utils.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/Utils.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/Utils.cpp.s
 .PHONY : Utils.cpp.s
 
 camiao.obj: camiao.cpp.obj
@@ -263,7 +263,7 @@ camiao.obj: camiao.cpp.obj
 
 # target to build an object file
 camiao.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/camiao.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/camiao.cpp.obj
 .PHONY : camiao.cpp.obj
 
 camiao.i: camiao.cpp.i
@@ -272,7 +272,7 @@ camiao.i: camiao.cpp.i
 
 # target to preprocess a source file
 camiao.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/camiao.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/camiao.cpp.i
 .PHONY : camiao.cpp.i
 
 camiao.s: camiao.cpp.s
@@ -281,7 +281,7 @@ camiao.s: camiao.cpp.s
 
 # target to generate assembly for a file
 camiao.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/camiao.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/camiao.cpp.s
 .PHONY : camiao.cpp.s
 
 main.obj: main.cpp.obj
@@ -290,7 +290,7 @@ main.obj: main.cpp.obj
 
 # target to build an object file
 main.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/main.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/main.cpp.obj
 .PHONY : main.cpp.obj
 
 main.i: main.cpp.i
@@ -299,7 +299,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -308,7 +308,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 menus.obj: menus.cpp.obj
@@ -317,7 +317,7 @@ menus.obj: menus.cpp.obj
 
 # target to build an object file
 menus.cpp.obj:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/menus.cpp.obj
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/menus.cpp.obj
 .PHONY : menus.cpp.obj
 
 menus.i: menus.cpp.i
@@ -326,7 +326,7 @@ menus.i: menus.cpp.i
 
 # target to preprocess a source file
 menus.cpp.i:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/menus.cpp.i
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/menus.cpp.i
 .PHONY : menus.cpp.i
 
 menus.s: menus.cpp.s
@@ -335,7 +335,7 @@ menus.s: menus.cpp.s
 
 # target to generate assembly for a file
 menus.cpp.s:
-	$(MAKE) -f CMakeFiles\Projeto_AEDA.dir\build.make CMakeFiles/Projeto_AEDA.dir/menus.cpp.s
+	$(MAKE) -f CMakeFiles\PROJ2.dir\build.make CMakeFiles/PROJ2.dir/menus.cpp.s
 .PHONY : menus.cpp.s
 
 # Help Target
@@ -344,7 +344,7 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... Projeto_AEDA
+	@echo ... PROJ2
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Empresa.obj
