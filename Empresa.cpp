@@ -722,3 +722,25 @@ void Empresa::subscreveServicoOficina(string tipoServico, Oficina& o1) {
     oficinas.push(o1);
 }
 
+
+void Empresa::setOficinas(priority_queue<Oficina> oficinas) {this->oficinas = oficinas;}
+
+bool Empresa::adicionaServicoEspecifico(string marca) {
+    bool found = false;
+    vector <Oficina> oficinas_vetor;
+    while (!oficinas.empty()){
+        Oficina selecionada = oficinas.top();
+        if (selecionada.addServico(marca, "especifico")){
+            found = true;
+            oficinas_vetor.push_back(selecionada);
+            oficinas.pop();
+        }
+        else {
+            oficinas.pop();
+            oficinas_vetor.push_back(selecionada);
+        }
+    }
+    for (Oficina o1: oficinas_vetor) oficinas.push(o1);
+    return found;
+
+}

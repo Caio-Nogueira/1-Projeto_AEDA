@@ -36,4 +36,6 @@ public:
     bool operator<(const Oficina& o1) const;
 
     friend ostream& operator << (ostream& out, const Oficina& o);
+
+    bool addServico(string marca, string tipoServico);
 };

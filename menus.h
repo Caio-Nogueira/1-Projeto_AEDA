@@ -165,7 +165,11 @@ void gerirMotoristas(Empresa& e1);
  * @param e1 Base de dados para passar às funcoes que operam sobre esta
  */
 void Estatisticas(Empresa& e1);
-
+/**
+ * @brief Menu que permite gerir os servicos das oficinas que sao prestados aos camioes
+ * @param e1 empresa a ser alterada
+ */
+void gerirServicosOficinas(Empresa& e1);
 /**
  * @brief Menu principal, onde se pode aceder a vários sub-menus para operar sobre um detalhe particular da empresa
  *

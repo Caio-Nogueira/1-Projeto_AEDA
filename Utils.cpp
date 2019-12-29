@@ -586,3 +586,10 @@ string toStringMarcas(list <string> marcas){
     string result = ss.str();
     return result.substr(0, result.size()-1);
 }
+
+Camiao* findCamioesID(vector <Camiao*> camioes, int id){
+    for (Camiao* c: camioes){
+        if (c->getId() == id) return c;
+    }
+    return NULL;
+}

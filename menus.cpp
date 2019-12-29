@@ -14,7 +14,7 @@ void adicionarClientes(Empresa& e1){
     Cliente n(nome, idade, nif, 0);
     try{
         e1.adicionarCliente(n);
-        cout << endl << "Cliente adicionardo => " << n.getName() << endl;
+        cout << endl << "Cliente adicionado => " << n.getName() << endl;
     }
     catch(ClienteRepetido c){
         cerr << "Cliente repetido => " << c.getName() << endl;
@@ -900,6 +900,45 @@ void Estatisticas(Empresa& e1){
     return;
 }
 
+void gerirServicosOficinas(Empresa& e1){
+    for (Camiao* c: e1.getCamioes()){
+        cout << "[" << c->getId() << "]" << *c;
+    }
+    int id_sel = menuValidInput("Selecione o camiao que pretende para o servico\n",1, e1.getCamioes().size());
+    Camiao* ca = findCamioesID(e1.getCamioes(), id_sel);
+    cout << "[0] Sair\n" ;
+    cout << "[1] Servico normal\n";
+    cout << "[2] Serviço especifico\n";
+    int option = menuValidInput("Escolah o tipo de servico que pretende:", 0, 2);
+    switch(option){
+        case 0: return;
+        case 1: {
+            priority_queue <Oficina> aux = e1.getOficinas();
+            Oficina selecionada = aux.top();
+            aux.pop();
+            cout << "[0] Sair\n" << "[1] Mudanca de oleo\n" << "[2] Revisao\n"<< "[3] Limpeza\n" << "[4] Manutencao geral\n";
+            int servico = menuValidInput("Selecione o servico pretendido: ", 0, 4);
+            if (servico == 0) return;
+            else{
+                selecionada.addServico(ca->getMarca(), "normal");
+                aux.push(selecionada);
+                e1.setOficinas(aux);
+                e1.updateOficinas();
+            }
+        }
+        case 2: {
+            cout << "[0] Sair\n" << "[1] Substituicao de componentes\n" << "[2] Troca de pneus\n" << "[3] Manutencao do motor\n" << "[4] Manutencao do sistema eletrico\n";
+            int option2 = menuValidInput("Selecione o servico que pretendde:", 0,4);
+            if (option2 == 0) return;
+            else{
+                if (e1.adicionaServicoEspecifico(ca->getMarca())) cout << "Servico agendado com sucesso\n";
+                else cout << "Nenhuma oficina encontrada para o camiao selecionado\n";
+                e1.updateOficinas();
+            }
+        }
+    }
+}
+
 unsigned mainMenu(Empresa& e1) {
     cout << endl;
     //e1.atualizaClientesInativos();
@@ -910,7 +949,8 @@ unsigned mainMenu(Empresa& e1) {
     cout << "|| (2) Gerir camioes" << endl;
     cout << "|| (3) Gerir servicos de transporte" << endl;
     cout << "|| (4) Gerir motoristas" << endl;
-    cout << "|| (5) Mostrar estatisticas da empresa" << endl;
+    cout << "|| (5) Gerir oficinas" << endl;
+    cout << "|| (6) Mostrar estatisticas da empresa" << endl;
     int option = menuValidInput("Opcao:", 0,5);
     switch(option){
         case 0:
@@ -936,8 +976,12 @@ unsigned mainMenu(Empresa& e1) {
             mainMenu(e1);
             break;
         case 5:
+            gerirServicosOficinas(e1);
+            mainMenu(e1);
+            break;
+        case 6:
             Estatisticas(e1);
-            cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
+            cout << "= = = = = = = = = = = = = = = = = = = = = = = = = =" << endl;
             mainMenu(e1);
             break;
         default: return 0;

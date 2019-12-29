@@ -327,4 +327,8 @@ public:
     void updateOficinas();
 
     void subscreveServicoOficina(string tipoServico, Oficina& o1);
+
+    void setOficinas(priority_queue <Oficina> oficinas);
+
+    bool adicionaServicoEspecifico(string marca);
 };

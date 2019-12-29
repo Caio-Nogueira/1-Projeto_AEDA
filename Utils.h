@@ -246,3 +246,5 @@ int activeCheck(Cliente c1);
 list<string> listStringSplit(string fullstring, char delimiter);
 
 string toStringMarcas(list <string> marcas);
+
+Camiao* findCamioesID(vector <Camiao*> camioes, int id);
