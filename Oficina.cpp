@@ -10,13 +10,10 @@ Oficina::Oficina(string nome, list<string> marcas, unsigned disponibilidade) {
     this->next_available_date = atual.addDays(disponibilidade);
 }
 
-unsigned Oficina::getDisponibilidade() const {return disponibilidade;}
+unsigned int Oficina::getDisponibilidade() const {return disponibilidade;}
 
-void Oficina::setDisponibilidade(unsigned d) {
+void Oficina::setDisponibilidade(const unsigned d) {
     this->disponibilidade = disponibilidade;
-    Date atual = getCurrentTime();
-    atual.addDays(this->disponibilidade);
-    this->next_available_date = atual;
 }
 
 string Oficina::getNome() const {return nome;}
@@ -43,12 +40,14 @@ ostream& operator<<(ostream &out, const Oficina &o) {
 
 Date Oficina::getDateAvailable() const {return this->next_available_date;}
 
-void Oficina::setDateAvailable(const Date &d1) {this->next_available_date = d1;}
+void Oficina::setDateAvailable(Date &d1) {this->next_available_date = d1;}
 
 bool Oficina::addServico(string marca, string tipoServico) {
     auto it = find(marcas.begin(), marcas.end(), marca);
     if (tipoServico != "normal" && it == marcas.end()) //servico especifico e a marca nao e abrangida pela oficina
         return false;
     disponibilidade += 3;
+    unsigned disp = 3;
+    next_available_date = next_available_date.addDays(disp);
     return true;
 }

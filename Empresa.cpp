@@ -345,9 +345,14 @@ void Empresa::readOficinas() {
             list <string> marcas = listStringSplit(marcas_string, ' ');
             getline(file, disp_str);
             getline(file, date_str);
-            unsigned  d = (unsigned) stoi(disp_str);
-            Oficina* o = new Oficina(nome, marcas, d);
-            o->setDisponibilidade(d);
+            Date current = dateSplitter(date_str);
+            int d = getNumDays(current);
+            if (d < 0){
+                current = getCurrentTime();
+                d = 0;
+            }
+            Oficina* o = new Oficina(nome, marcas, (unsigned) d);
+            o->setDateAvailable(current);
             oficinas.push(*o);
             if (file.eof()) break;
             else getline(file, sep);
@@ -719,6 +724,10 @@ void Empresa::subscreveServicoOficina(string tipoServico, Oficina& o1) {
     else if (tipoServico == "substituicao peca") o1.setDisponibilidade(disp+4);
     while (!oficinas.empty()) oficinas.pop();
     for (Oficina o: oficinas_vector) oficinas.push(o);
+    Date current = o1.getDateAvailable();
+    unsigned disponib = o1.getDisponibilidade();
+    current = current.addDays(disponib);
+    o1.setDateAvailable(current);
     oficinas.push(o1);
 }
 

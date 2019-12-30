@@ -23,13 +23,13 @@ public:
 
     void setMarcas(list <string > marcas);
 
-    unsigned  getDisponibilidade() const;
+    unsigned int getDisponibilidade() const;
 
     void setDisponibilidade(unsigned d);
 
     Date getDateAvailable() const;
 
-    void setDateAvailable( const Date& d1);
+    void setDateAvailable( Date& d1);
 
     bool operator==(const Oficina& o1);
 

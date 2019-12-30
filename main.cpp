@@ -11,5 +11,6 @@ int main() {
     string file = "../empresa.txt";
     Empresa e1(file);
     mainMenu(e1);
+    e1.updateOficinas();
     return 0;
 }

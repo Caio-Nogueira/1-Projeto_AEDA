@@ -593,3 +593,13 @@ Camiao* findCamioesID(vector <Camiao*> camioes, int id){
     }
     return NULL;
 }
+
+int getNumDays(Date d){
+    Date current_day = getCurrentTime();
+    if (current_day.ano == d.ano){
+        if (current_day.mes == d.mes) return d.dia - current_day.dia;
+        else
+            return (d.dia+30) - current_day.dia;
+    }
+    return ((d.ano-1)*365 + (d.mes-1)*365 + d.dia) - ((current_day.ano-1)*365 + (current_day.mes-1)*30 + current_day.dia);
+}

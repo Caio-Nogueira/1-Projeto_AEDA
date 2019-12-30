@@ -248,3 +248,5 @@ list<string> listStringSplit(string fullstring, char delimiter);
 string toStringMarcas(list <string> marcas);
 
 Camiao* findCamioesID(vector <Camiao*> camioes, int id);
+
+int getNumDays(Date d);

@@ -139,12 +139,14 @@ Date Date::operator+(const Date &d1) {
 Date Date::addDays(unsigned &d) {
     Date result;
     result.dia = this->dia+d;
+    result.ano = this->ano;
+    result.mes = this->mes;
     if (result.dia > 30){
-        result.mes += (result.dia / 30);
+        result.mes ++;//= (result.dia / 30);
         result.dia %= 30;
     }
     if (result.mes > 12){
-        result.ano += (result.mes / 12);
+        result.ano ++;//= (result.mes / 12);
         result.mes %= 12;
     }
     return result;

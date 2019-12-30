@@ -925,6 +925,7 @@ void gerirServicosOficinas(Empresa& e1){
                 e1.setOficinas(aux);
                 e1.updateOficinas();
             }
+            break;
         }
         case 2: {
             cout << "[0] Sair\n" << "[1] Substituicao de componentes\n" << "[2] Troca de pneus\n" << "[3] Manutencao do motor\n" << "[4] Manutencao do sistema eletrico\n";
@@ -935,6 +936,7 @@ void gerirServicosOficinas(Empresa& e1){
                 else cout << "Nenhuma oficina encontrada para o camiao selecionado\n";
                 e1.updateOficinas();
             }
+            break;
         }
     }
 }
