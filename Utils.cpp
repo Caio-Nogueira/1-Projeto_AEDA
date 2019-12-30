@@ -4,6 +4,7 @@
 #include <map>
 #include "ServicoTransporte.h"
 #include "Utils.h"
+#include <fstream>
 
 
 using namespace std;
@@ -319,6 +320,7 @@ string camioesTipoVerifier(vector<Camiao *> camioes, vector<Camiao *>& aux){ //v
             }
         }
     }
+    cin.clear();
     cin.ignore(1000, '\n');
     return input;
 }
@@ -400,6 +402,7 @@ string inputHorario(string mensagem) {
         else
             valid = true;
     }
+    cin.clear();
     cin.ignore(1000, '\n');
     return input;
 }
@@ -511,6 +514,8 @@ string menuDateInput(string mensagem){
         }
         else valid = true;
     }
+    cin.clear();
+    cin.ignore(1000, '\n');
     return date_str;
 }
 
@@ -603,3 +608,5 @@ int getNumDays(Date d){
     }
     return ((d.ano-1)*365 + (d.mes-1)*365 + d.dia) - ((current_day.ano-1)*365 + (current_day.mes-1)*30 + current_day.dia);
 }
+
+bool emptyF(ifstream& file) {return file.peek() == iostream::traits_type::eof();}

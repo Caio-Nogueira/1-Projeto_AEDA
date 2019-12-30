@@ -1,101 +1,119 @@
-Rui Almeida
-65
+Yennefer of Vengerberg
+101
+194362845
+-
+0
+:::::
+Natalie Noel
+23
+862351845
+-
+0
+:::::
+Corinna Kopf
+24
+127846375
+-
+0
+:::::
+Edu Correia
+55
+111222111
+-
+0
+:::::
+Joao Rodrigo
+19
 123456789
-2 ; 3 ; 9
-1
-:::::
-Caio Nogueira
-19
-257115412
-1
-1
-:::::
-Jose
-20
-123412345
 -
 0
 :::::
-Carlos
-19
-987654321
--
-0
-:::::
-Andreia
-40
-918273645
--
-0
-:::::
-Soraia
-19
+Cristiano Messi
+34
 192837465
 -
 0
 :::::
-Diogo
-19
-876543219
+Ricardo Fazeres
+40
+165423785
 -
 0
 :::::
-Pedro Queiros
-19
-765432189
+Vladimir Putin
+67
+195362345
 -
 0
 :::::
-Carlos Lousada
-19
-654321789
+Kim Jong-Un
+35
+100000000
 -
 0
 :::::
-David Rocha
-19
-543216789
+Donald Trump
+73
+196462356
 -
 0
 :::::
-Fernando
-23
-98765432
+Salome Marques
+28
+987654321
 -
 0
 :::::
-Daniel Oliveira
-19
-102938476
+Andreia Lopes
+20
+672947154
 -
 0
 :::::
-Telmo Botelho
-19
-198765432
+Ricardo Matos
+26
+888888888
+-
+0
+:::::
+Manuel Silva
+45
+954278154
 -
 0
 :::::
 Travis Scott
-30
-432109876
-12
-1
-:::::
-Tomas Mendes
 26
-123456780
+696969699
 -
 0
 :::::
-Pedro Souto
-48
-231456789
+Kylie Jenner
+23
+420420420
 -
 0
 :::::
-Marcus
-37
-980043176
+Scooby Doo
+18
+111199995
+-
+0
+:::::
+Jota Oliveira
+19
+101010101
+-
+0
+:::::
+Daniela Loureiro
+19
+123987456
+-
+0
+:::::
+Elizabeth Lail
+27
+999888777
 -
 0

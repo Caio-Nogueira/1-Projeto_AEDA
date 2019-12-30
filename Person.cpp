@@ -3,7 +3,7 @@
 #include <sstream>
 
 using namespace std;
-unsigned Motorista::last_id = 0;
+unsigned Motorista::last_id = -1;
 
 Person::Person(string name, int age) {
     this->name = name;
@@ -56,7 +56,7 @@ Motorista::Motorista(string name, int age, int salario, pair<string, string> hor
 }
 
 bool Cliente::operator==(const Cliente c2) {
-    return (this->name == c2.getName() && this->nif == c2.getNif());
+    return (this->nif == c2.getNif());
 }
 
 bool Motorista::isWorking(string time) const {
@@ -176,7 +176,7 @@ string MotoristaRepetido::getName() const {return name;}
 int MotoristaRepetido::getId() const {return id;}
 
 bool Motorista::operator<(const Motorista& m) const {
-    if (this->getTotalHoras() < m.getTotalHoras())
+    if (this->getTotalHoras() == m.getTotalHoras())
         return this->getName() < m.getName();
     return this->total_horas < m.total_horas;
 }
@@ -187,6 +187,6 @@ int Motorista::getTotalHoras() const {
     return total_horas;
 }
 
-void Motorista::setId(int id) {this->id = id;}
+//void Motorista::setId(int id) {this->id = id;}
 
-void Motorista::updateLastId() {Motorista::last_id++;}
+//void Motorista::updateLastId() {Motorista::last_id++;}

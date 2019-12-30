@@ -55,7 +55,7 @@ void Empresa::readClientes() {
     ifstream file;
     file.open(this->clientes_ficheiro);
     if (file.is_open() && !file.eof()){
-        while (true){
+        while (!file.eof() && !emptyF(file)) {
             string name, age_str, nif_str, packs_str, active, sep;
             getline(file, name);
             getline(file, age_str);
@@ -66,20 +66,21 @@ void Empresa::readClientes() {
             for (ServicoTransporte st: p->getServicos()) eliminarServico(st);//o servico deixa de estar diponivel para outros clientes
             if (activeCheck(*p)) clientes.push_back(*p);
             else inactiveClients.insert(*p);
-            if (file.eof()) break;
-            else getline(file, sep);
+            if (!file.eof()) {
+                getline(file, sep);
+            }
         }
     }
 }
 
-void Empresa::atualizaClientesInativos() {
+/*void Empresa::atualizaClientesInativos() {
     for (Cliente c: clientes){
         if (activeCheck(c) == 0){
             inactiveClients.insert(c);
             c.setActive(0);
         }
     }
-}
+}*/
 
 void Empresa::arrangeClients(vector<Cliente> cli) {
     clientes.clear();
@@ -285,8 +286,8 @@ void Empresa::readMotoristas() {
     ifstream file;
     file.open(this->motoristas_ficheiro);
     if (file.is_open() && !file.eof()) {
-        while (true) {
-            string name, age_str, salario_str, horario_str, categorias_str, total_horas_str,sep;
+        while (!file.eof() && !emptyF(file)) {
+            string name, age_str, salario_str, horario_str, categorias_str, total_horas_str, sep;
             getline(file, name);
             getline(file, age_str);
             getline(file, salario_str);
@@ -297,8 +298,9 @@ void Empresa::readMotoristas() {
             //m->setId((int) Motorista::getLastId()+1);
             //m->updateLastId();
             this->motoristas.insert(*m);
-            if (file.eof()) break;
-            else getline(file, sep);
+            if (!file.eof()) {
+                getline(file, sep);
+            }
         }
     }
 }
@@ -338,7 +340,7 @@ void Empresa::readOficinas() {
     ifstream file;
     file.open(oficinas_ficheiro);
     if (file.is_open()){
-        while (true){
+        while (!file.eof() && !emptyF(file)) {
             string nome, marcas_string, disp_str, date_str, sep;
             getline(file, nome);
             getline(file, marcas_string);
@@ -354,8 +356,10 @@ void Empresa::readOficinas() {
             Oficina* o = new Oficina(nome, marcas, (unsigned) d);
             o->setDateAvailable(current);
             oficinas.push(*o);
-            if (file.eof()) break;
-            else getline(file, sep);
+            if (!file.eof()) {
+                string sep;
+                getline(file, sep);
+            }
         }
     }
     else{
@@ -402,11 +406,13 @@ void Empresa::readDistancias() {
 }
 
 void Empresa::adicionarCliente(Cliente novoCliente) {
-    for (Cliente c: clientes){
+    vector<Cliente> copia = clientes;
+    copia.insert(copia.end(), inactiveClients.begin(), inactiveClients.end());
+    for (Cliente c: copia){
         if (c == novoCliente)
             throw ClienteRepetido(novoCliente.getName(), novoCliente.getAge());
     }
-    this->inactiveClients.insert(novoCliente);
+    inactiveClients.insert(novoCliente);
 }
 
 void Empresa::eliminarCliente(Cliente cli) {
@@ -431,9 +437,9 @@ void Empresa::adicionarMotorista(Motorista mot) {
         if (it.retrieve() == mot) throw MotoristaRepetido(mot.getName(), mot.getId());
         it.advance();
     }
-    mot.setId(Motorista::getLastId()+1);
-    mot.updateLastId();
-    this->motoristas.insert(mot);
+    //mot.setId(Motorista::getLastId());
+    //mot.updateLastId();
+    motoristas.insert(mot);
 }
 
 void Empresa::eliminarMotorista(Motorista mot) {
@@ -532,7 +538,7 @@ void Empresa::readServicos() {
     string separator;
     file.open(this->servicos_ficheiro);
     if (file.is_open()) {
-        while (true) {
+        while (!file.eof() && !emptyF(file)) {
             string id_str, tipo, id_camioes_str, origem, destino, horario, date_str, b;
             getline(file, id_str);
             getline(file, tipo);
@@ -542,12 +548,11 @@ void Empresa::readServicos() {
             getline(file, horario);
             getline(file, date_str);
             getline(file, b);
-            ServicoTransporte n(ServicoTransporte::globalID, origem, destino, tipo,camioesBuilder(id_camioes_str, this->camioes,tipo), horario, dateSplitter(date_str),(unsigned) stoi(b));
+            ServicoTransporte n(origem, destino, tipo,camioesBuilder(id_camioes_str, this->camioes,tipo), horario, dateSplitter(date_str),(unsigned) stoi(b));
             this->servicos.push_back(n);
-            ServicoTransporte::globalID++;
-            if (file.eof())
-                break;
-            getline(file, separator);
+            if (!file.eof()) {
+                getline(file, separator);
+            }
         }
     }
 
@@ -641,6 +646,7 @@ void Empresa::adicionarServico(ServicoTransporte st) {
         if (it.retrieve().isWorking(st.getHorario()) && idx != -1){
             MotoristasIndisponiveisctr = false;
         }
+        it.advance();
     }
 
     if (MotoristasIndisponiveisctr)

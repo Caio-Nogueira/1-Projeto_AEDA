@@ -189,7 +189,7 @@ public:
 	* @param disponivel Disponibilidade inicial do servico
 	* @return ServicoTransporte Servico criado
 	*/
-    ServicoTransporte(int id, string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data,unsigned disponivel);
+    ServicoTransporte(string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data,unsigned disponivel);
 	/**
 	* @brief Retorna a disponibilidade do servico
 	*
@@ -267,7 +267,6 @@ public:
 	* @return ostream Mesma stream utilizada como parametro
 	*/
     friend ostream& operator <<(ostream& out,const ServicoTransporte& st);
-    static unsigned id_ctr;
     static double NormalMultiplicador;
     static double PerigososMultiplicador;
     static double CongelacaoMultiplicador;
@@ -277,7 +276,7 @@ public:
 	* @brief Incrementa o identificador global, usado cada vez que se cria um novo servico
 	*
 	*/
-    static void atualizaID();
+    //static void atualizaID();
 };
 
 //adicionar produtos, motoristas

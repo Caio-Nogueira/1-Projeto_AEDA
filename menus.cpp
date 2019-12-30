@@ -357,7 +357,7 @@ void gerirCamioes(Empresa& e1) {
 
 void adicionarServicos(Empresa& e1){
     string camioes_str, origem, destino, horario, data;
-    vector <Camiao*>aux;
+    vector <Camiao*> aux;
     string tipo_camioes = camioesTipoVerifier(e1.getCamioes(), aux);
     if (aux.size() == 0){
         cout << "Nao existem camioes deste tipo disponiveis\n";
@@ -399,12 +399,12 @@ void adicionarServicos(Empresa& e1){
     cout << "Origem:";getline(cin, origem);
     cout << "Destino:";getline(cin, destino);
     horario = inputHorario("Horario:");
-    data = menuDateInput("Data (DD/MM/AAAA):");
-    ServicoTransporte st(ServicoTransporte::globalID,origem,destino,tipo_camioes,vect,horario, dateSplitter(data),1);
+    data = menuDateInput("Data(DD/MM/AAAA):");
+    ServicoTransporte st(origem,destino,tipo_camioes,vect,horario, dateSplitter(data),1);
     try{
         e1.adicionarServico(st);
     }
-    catch (CamioesIndisponiveis c){
+    catch (CamioesIndisponiveis c) {
         cerr << "Um ou mais camioes selecionados encontram-se indisponiveis para este servico de transporte\n";
         return;
     }
@@ -901,10 +901,15 @@ void Estatisticas(Empresa& e1){
 }
 
 void gerirServicosOficinas(Empresa& e1){
+    cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
+    cout << "[0] Sair\n";
+    cout << "--------------------------------------------------" << endl;
     for (Camiao* c: e1.getCamioes()){
-        cout << "[" << c->getId() << "]" << *c;
+        cout << *c;
+        cout << "--------------------------------------------------" << endl;
     }
-    int id_sel = menuValidInput("Selecione o camiao que pretende para o servico\n",1, e1.getCamioes().size());
+    int id_sel = menuValidInput("Selecione o camiao que pretende para o servico (0 para sair):",0, e1.getCamioes().size());
+    if (id_sel == 0) return;
     Camiao* ca = findCamioesID(e1.getCamioes(), id_sel);
     cout << "[0] Sair\n" ;
     cout << "[1] Servico normal\n";
@@ -943,7 +948,6 @@ void gerirServicosOficinas(Empresa& e1){
 
 unsigned mainMenu(Empresa& e1) {
     cout << endl;
-    //e1.atualizaClientesInativos();
     cout << "====== BEM-VINDO A EMPRESA " << e1.getName() << "! ======" << endl;
     cout << "|| ================== MAIN MENU ==================" << endl;
     cout << "|| (0) Sair" << endl;
@@ -953,7 +957,7 @@ unsigned mainMenu(Empresa& e1) {
     cout << "|| (4) Gerir motoristas" << endl;
     cout << "|| (5) Gerir oficinas" << endl;
     cout << "|| (6) Mostrar estatisticas da empresa" << endl;
-    int option = menuValidInput("Opcao:", 0,5);
+    int option = menuValidInput("Opcao:", 0,6);
     switch(option){
         case 0:
             return 1; // acabar programa

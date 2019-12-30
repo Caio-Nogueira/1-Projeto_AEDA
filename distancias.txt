@@ -10,7 +10,7 @@ Aveiro -> Viseu - 84.6
 Aveiro -> Braganca - 269.8
 Aveiro -> Vila Real - 157.1
 Aveiro -> Guimaraes - 73.2
-Aveiro -> Viana do Castel0 - 153.0
+Aveiro -> Viana do Castelo - 153.0
 Viseu -> Braganca - 198.0
 Viseu -> Braga - 176.2
 Viseu -> Guimaraes - 177.0

@@ -314,7 +314,7 @@ public:
     /**
     * @brief Atualiza os clientes cujo ultimo serviço adquirido ocorreu ha mais de 1 ano
     */
-    void atualizaClientesInativos();
+    //void atualizaClientesInativos();
 
     /**
     * Le informacao relativa as oficinas utilizadas pela empresa

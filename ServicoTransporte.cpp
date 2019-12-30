@@ -17,12 +17,10 @@ int ServicoTransporte::getId() const {return id;}
 
 void ServicoTransporte::setHorario(string horario) {this->horario = horario;}
 
-int ServicoTransporte::globalID = 1;
+int ServicoTransporte::globalID = 0;
 
-void ServicoTransporte::atualizaID() {globalID++;}
-
-ServicoTransporte::ServicoTransporte(int id, string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data, unsigned disponivel) {
-    this->id = id;
+ServicoTransporte::ServicoTransporte(string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data, unsigned disponivel) {
+    this->id = ++globalID;
     this->origem = origem;
     this->destino = destino;
     this->camioes = camioes;

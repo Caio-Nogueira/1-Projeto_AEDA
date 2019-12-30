@@ -279,8 +279,8 @@ public:
     /**
      * @brief Altera o valor do id do mototista
      * @param id novo valor do identificador do motorista
-     */
-    void setId(int id);
+
+    void setId(int id);*/
 	/**
 	* @brief Muda o horario do motorista, usando um par de hora de inicio/fim
 	*
@@ -364,7 +364,7 @@ public:
      */
     bool operator <(const Motorista& m) const;
 
-    void updateLastId();
+    //void updateLastId();
 };
 
 

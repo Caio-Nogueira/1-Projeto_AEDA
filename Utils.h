@@ -250,3 +250,5 @@ string toStringMarcas(list <string> marcas);
 Camiao* findCamioesID(vector <Camiao*> camioes, int id);
 
 int getNumDays(Date d);
+
+bool emptyF(ifstream& file);
