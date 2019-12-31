@@ -539,7 +539,7 @@ void Empresa::readServicos() {
     file.open(this->servicos_ficheiro);
     if (file.is_open()) {
         while (!file.eof() && !emptyF(file)) {
-            string id_str, tipo, id_camioes_str, origem, destino, horario, date_str, b;
+            string id_str, tipo, id_camioes_str, origem, destino, horario, date_str, b, horas_str;
             getline(file, id_str);
             getline(file, tipo);
             getline(file, id_camioes_str);
@@ -548,7 +548,8 @@ void Empresa::readServicos() {
             getline(file, horario);
             getline(file, date_str);
             getline(file, b);
-            ServicoTransporte n(origem, destino, tipo,camioesBuilder(id_camioes_str, this->camioes,tipo), horario, dateSplitter(date_str),(unsigned) stoi(b));
+            getline(file, horas_str);
+            ServicoTransporte n(origem, destino, tipo,camioesBuilder(id_camioes_str, this->camioes,tipo), horario, dateSplitter(date_str),(unsigned) stoi(b), (unsigned) stoi(horas_str));
             this->servicos.push_back(n);
             if (!file.eof()) {
                 getline(file, separator);
@@ -576,7 +577,8 @@ void Empresa::updateServicos() {
             if (st.getHorario().length() == 4) file << "0" << st.getHorario() << endl;
             else file << st.getHorario() << endl;
             file << toStringDate(st.getDate()) << endl;
-            file << st.getDisponibilidade();
+            file << st.getDisponibilidade() << endl;
+            file << st.getHoras();
             if (!(st == servicos.at(servicos.size()-1))) //verifica se é o ultimo elemento do vetor
                 file << endl << separator << endl;
         }
@@ -645,6 +647,11 @@ void Empresa::adicionarServico(ServicoTransporte st) {
         int idx = BinarySearch(cate, st.getTipo().at(0));
         if (it.retrieve().isWorking(st.getHorario()) && idx != -1){
             MotoristasIndisponiveisctr = false;
+            Motorista* m = new Motorista(it.retrieve());
+            motoristas.remove(*m);
+            unsigned horas = st.getHoras();
+            m->addHoras(horas);
+            motoristas.insert(*m);
         }
         it.advance();
     }

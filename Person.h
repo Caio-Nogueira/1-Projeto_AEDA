@@ -329,7 +329,12 @@ public:
 	* @param time Hora especificada
 	* @return bool True se o motorista esta a trabalhar nessa hora, false caso contrario
 	*/
-    bool isWorking(string time) const;	
+    bool isWorking(string time) const;
+    /**
+     * @brief Metodo que acresce o numero total de horas trabalhadas pelo motorista
+     * @param h numero de horas a acrescentar
+     */
+    void addHoras(unsigned h);
 	/**
 	* @brief Construtor de um motorista
 	*
@@ -364,7 +369,9 @@ public:
      */
     bool operator <(const Motorista& m) const;
 
+
     //void updateLastId();
+
 };
 
 

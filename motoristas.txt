@@ -1,29 +1,15 @@
-Caio Nogueira
-24
-750
-17:00 -> 01:00
-p
-30
-:::::
-Carlos Lousada
-24
-620
-01:00 -> 09:00
-a
-20
-:::::
-David Rocha
-24
-620
-04:00 -> 12:00
-c
-19
-:::::
 Diogo Almeida
 24
 620
 05:00 -> 13:00
 a
+0
+:::::
+Ermandinger
+32
+600
+12:00 -> 17:00
+p ; n
 0
 :::::
 Jose Folhadela
@@ -32,20 +18,6 @@ Jose Folhadela
 10:00 -> 18:00
 n ; p ; a ; c
 0
-:::::
-Maximo
-24
-600
-20:00 -> 04:00
-p
-47
-:::::
-Miguel Silva
-24
-750
-09:00 -> 17:00
-n
-13
 :::::
 Pedro Queiros
 24
@@ -67,3 +39,38 @@ Tomas Mendes
 13:00 -> 21:00
 a
 0
+:::::
+Miguel Silva
+24
+750
+09:00 -> 17:00
+n
+13
+:::::
+David Rocha
+24
+620
+04:00 -> 12:00
+c
+19
+:::::
+Carlos Lousada
+24
+620
+01:00 -> 09:00
+a
+20
+:::::
+Caio Nogueira
+24
+750
+17:00 -> 01:00
+p
+30
+:::::
+Maximo
+24
+600
+20:00 -> 04:00
+p
+47

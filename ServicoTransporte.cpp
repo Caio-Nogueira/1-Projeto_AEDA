@@ -19,7 +19,7 @@ void ServicoTransporte::setHorario(string horario) {this->horario = horario;}
 
 int ServicoTransporte::globalID = 0;
 
-ServicoTransporte::ServicoTransporte(string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data, unsigned disponivel) {
+ServicoTransporte::ServicoTransporte(string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data, unsigned disponivel, unsigned n_horas) {
     this->id = ++globalID;
     this->origem = origem;
     this->destino = destino;
@@ -28,6 +28,7 @@ ServicoTransporte::ServicoTransporte(string origem, string destino, string tipo_
     this->tipo_camioes = tipo_camioes;
     this->data = data;
     this->servicoDisponivel = disponivel;
+    this->n_horas = n_horas;
 }
 
 Date ServicoTransporte::getDate() const {return data;}
@@ -56,6 +57,7 @@ ostream& operator<<(ostream &out, const ServicoTransporte &st) {
     out << "Identificador: " << st.getId() << endl;
     out << "Origem: " << st.getOrigem() << " ; Destino: " << st.getDestino() << endl;
     out << "Horario: " << st.getHorario() << endl;
+    out << "Numero de horas estimadas: " << st.getHoras() << endl;
     return out;
 }
 
@@ -149,3 +151,7 @@ Date Date::addDays(unsigned &d) {
     }
     return result;
 }
+
+unsigned ServicoTransporte::getHoras() const {return this->n_horas;}
+
+void ServicoTransporte::setHoras(unsigned h) {this->n_horas = h;}

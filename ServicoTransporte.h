@@ -133,6 +133,7 @@ private:
     string horario;
     Date data;
     unsigned servicoDisponivel; // 1 se o servico se encontra disponivel, 0 caso contrario
+    unsigned n_horas;
 public:	
 	/**
 	* @brief Retorna o identificador do servico
@@ -189,7 +190,8 @@ public:
 	* @param disponivel Disponibilidade inicial do servico
 	* @return ServicoTransporte Servico criado
 	*/
-    ServicoTransporte(string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data,unsigned disponivel);
+    ServicoTransporte(string origem, string destino, string tipo_camioes, vector<Camiao *> camioes, string horario, Date data,unsigned disponivel,
+                      unsigned n_horas);
 	/**
 	* @brief Retorna a disponibilidade do servico
 	*
@@ -252,6 +254,16 @@ public:
 	* @return double Preco do servico
 	*/
     double getPreco(map<pair<string,string>,double > distancias)const;
+    /**
+     * @brief Obtem o numero de horas necessarias para o servico
+     * @return unsigned int com o numero de horas para o servico
+     */
+    unsigned getHoras()  const;
+    /**
+     * @brief Altera o numero de horas necessarias para o servico
+     * @param h Novo numero de horas
+     */
+    void setHoras(unsigned h);
 	/**
 	* @brief Overload do operador == para averiguar a igualdade de 2 servicos
 	*

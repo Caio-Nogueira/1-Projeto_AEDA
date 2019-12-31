@@ -190,3 +190,7 @@ int Motorista::getTotalHoras() const {
 //void Motorista::setId(int id) {this->id = id;}
 
 //void Motorista::updateLastId() {Motorista::last_id++;}
+
+void Motorista::addHoras(unsigned h) {
+    total_horas += h;
+}
