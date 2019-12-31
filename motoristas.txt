@@ -3,21 +3,21 @@ Caio Nogueira
 750
 17:00 -> 01:00
 p
-0
+30
 :::::
 Carlos Lousada
 24
 620
 01:00 -> 09:00
 a
-0
+20
 :::::
 David Rocha
 24
 620
 04:00 -> 12:00
 c
-0
+19
 :::::
 Diogo Almeida
 24
@@ -38,14 +38,14 @@ Maximo
 600
 20:00 -> 04:00
 p
-0
+47
 :::::
 Miguel Silva
 24
 750
 09:00 -> 17:00
 n
-0
+13
 :::::
 Pedro Queiros
 24

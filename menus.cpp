@@ -851,18 +851,48 @@ void mostrarInformacaoServicos(Empresa& e1){
 void mostrarInformacaoMotoristas(Empresa& e1) {
     cout << "= = = = = = =ESTATISTICAS MOTORISTAS= = = = = = =" << endl;
     cout << "[0] Sair\n";
+    cout << "[1] Mostrar motoristas em ordem\n" << "[2] Mostrar motoristas por nivel\n";
+    cout << "[3] Mostrar motoristas em pre-ordem\n" << "[4] Mostrar motoristas em pos-ordem\n";
     cout << "--------------------------------------------------" << endl;
+    int option = menuValidInput("Selecione a opcao desejada:",0,4);
     BST<Motorista> copia = e1.getMotoristas();
-    BSTItrIn <Motorista> it(copia);
-    while (!it.isAtEnd()){
-        cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
-        cout << "--------------------------------------------------" << endl;
-        it.advance();
-    }
-    int option = menuValidInput("Selecione o motorista para ver em detalhe:", 0, e1.getServicos().size());
-    cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     if (option == 0) return;
-    Motorista *mot = findMotoristaIndex(e1.getMotoristas(), option);
+    else if (option == 1) {
+        BSTItrIn<Motorista> it(copia);
+        while (!it.isAtEnd()){
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
+            cout << "--------------------------------------------------" << endl;
+            it.advance();
+        }
+    }
+    else if (option == 2) {
+        BSTItrLevel<Motorista> it(copia);
+        while (!it.isAtEnd()){
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
+            cout << "--------------------------------------------------" << endl;
+            it.advance();
+        }
+    }
+    else if (option == 3) {
+        BSTItrPre<Motorista> it(copia);
+        while (!it.isAtEnd()){
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
+            cout << "--------------------------------------------------" << endl;
+            it.advance();
+        }
+    }
+    else if (option == 4) {
+        BSTItrPost<Motorista> it(copia);
+        while (!it.isAtEnd()){
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
+            cout << "--------------------------------------------------" << endl;
+            it.advance();
+        }
+    }
+    int option2 = menuValidInput("Selecione o motorista para ver em detalhe:", 0, e1.getServicos().size());
+    cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
+    if (option2 == 0) return;
+    Motorista *mot = findMotoristaIndex(e1.getMotoristas(), option2);
     cout << *mot;
 }
 
