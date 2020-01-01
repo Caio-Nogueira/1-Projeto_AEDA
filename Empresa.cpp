@@ -344,7 +344,7 @@ void Empresa::readOficinas() {
             string nome, marcas_string, disp_str, date_str, sep;
             getline(file, nome);
             getline(file, marcas_string);
-            list <string> marcas = listStringSplit(marcas_string, ' ');
+            list <string> marcas = listStringSplit(marcas_string, ';');
             getline(file, disp_str);
             getline(file, date_str);
             Date current = dateSplitter(date_str);
@@ -764,5 +764,6 @@ bool Empresa::adicionaServicoEspecifico(string marca) {
     }
     for (Oficina o1: oficinas_vetor) oficinas.push(o1);
     return found;
-
 }
+
+

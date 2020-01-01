@@ -68,6 +68,7 @@ double ServicoTransporte::getDistancia(map<pair<string, string>, double> distanc
         if (((*it).first.first == origem && (*it).first.second == destino) || ((*it).first.first == destino && (*it).first.second == origem))
             return (*it).second;
     }
+    return 0;
 }
 
 double ServicoTransporte::getPreco(map<pair<string,string>,double > distancias) const {
@@ -155,3 +156,14 @@ Date Date::addDays(unsigned &d) {
 unsigned ServicoTransporte::getHoras() const {return this->n_horas;}
 
 void ServicoTransporte::setHoras(unsigned h) {this->n_horas = h;}
+
+bool ServicoTransporte::eliminaCamiaoServico(Camiao *ca) {
+    for (auto it = camioes.begin(); it != camioes.end();it++){
+        if (**it == *ca) {
+            camioes.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+

@@ -586,10 +586,10 @@ list<string> listStringSplit(string fullstring, char delimiter){
 string toStringMarcas(list <string> marcas){
     stringstream ss;
     for (string str: marcas){
-        ss << str << " ";
+        ss << str << " ; ";
     }
     string result = ss.str();
-    return result.substr(0, result.size()-1);
+    return result.substr(0, result.size()-2);
 }
 
 Camiao* findCamioesID(vector <Camiao*> camioes, int id){

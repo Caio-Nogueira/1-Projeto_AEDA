@@ -900,10 +900,19 @@ void mostrarInformacaoEmpresa(Empresa& e1){
     cout << "Lucro mensal estimado: " << e1.calcularLucroMensal() << endl;
 }
 
+void mostrarInformacaoOficinas(Empresa& e1){
+    priority_queue<Oficina> aux = e1.getOficinas();
+    while (!aux.empty()){
+        Oficina atual = aux.top();
+        cout << atual;
+        aux.pop();
+    }
+}
+
 void Estatisticas(Empresa& e1){
     cout << "= = = = = = = = = =ESTATISTICAS= = = = = = = = = =" << endl;
     cout << "[0] Sair\n" << "[1] Mostrar informacao dos clientes\n" << "[2] Mostrar informacao dos camioes\n" << "[3] Mostrar informacao dos servicos disponiveis\n";
-    cout << "[4] Mostrar informacao dos motoristas\n" << "[5] Mostrar informacao mensal da empresa\n";
+    cout << "[4] Mostrar informacao dos motoristas\n" << "[5] Mostrar informacao relativa as oficinas\n" << "[6] Mostrar informacao mensal da empresa\n";
     int option = menuValidInput("Opcao:", 0, 5);
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     switch(option){
@@ -921,10 +930,13 @@ void Estatisticas(Empresa& e1){
             mostrarInformacaoMotoristas(e1);
             break;
         case 5:
+            mostrarInformacaoOficinas(e1);
+            break;
+        case 6:
             mostrarInformacaoEmpresa(e1);
             break;
     }
-    return;
+    //return;
 }
 
 void gerirServicosOficinas(Empresa& e1){
@@ -956,9 +968,18 @@ void gerirServicosOficinas(Empresa& e1){
                 aux.push(selecionada);
                 e1.setOficinas(aux);
                 e1.updateOficinas();
+                vector <ServicoTransporte> copia_servicos = e1.getServicos();
+                for (auto it = copia_servicos.begin(); it != copia_servicos.end(); it++){
+                    vector <Camiao*> camioes = (*it).getCamioes();
+                    auto itfind = find(camioes.begin(), camioes.end(), ca);
+                    if (itfind != camioes.end() && selecionada.getDateAvailable() == it->getDate()) it->eliminaCamiaoServico(ca);
+                }
+                e1.setServicos(copia_servicos);
+                e1.updateServicos();
+            }
             }
             break;
-        }
+
         case 2: {
             cout << "[0] Sair\n" << "[1] Substituicao de componentes\n" << "[2] Troca de pneus\n" << "[3] Manutencao do motor\n" << "[4] Manutencao do sistema eletrico\n";
             int option2 = menuValidInput("Selecione o servico que pretendde:", 0,4);
@@ -967,13 +988,22 @@ void gerirServicosOficinas(Empresa& e1){
                 if (e1.adicionaServicoEspecifico(ca->getMarca())) cout << "Servico agendado com sucesso\n";
                 else cout << "Nenhuma oficina encontrada para o camiao selecionado\n";
                 e1.updateOficinas();
+                /*vector <ServicoTransporte> copia_servicos = e1.getServicos();
+                for (auto it = copia_servicos.begin(); it != copia_servicos.end(); it++){
+                    vector <Camiao*> camioes = (*it).getCamioes();
+                    auto itfind = find(camioes.begin(), camioes.end(), *ca);
+                    if (itfind != camioes.end() && selec) it->eliminaCamiaoServico(ca);
+                }
+                e1.setServicos(copia_servicos);*/
             }
             break;
         }
     }
 }
 
+
 unsigned mainMenu(Empresa& e1) {
+    e1.updateOficinas();
     cout << endl;
     cout << "====== BEM-VINDO A EMPRESA " << e1.getName() << "! ======" << endl;
     cout << "|| ================== MAIN MENU ==================" << endl;

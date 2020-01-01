@@ -5,6 +5,8 @@
 #include "camiao.h"
 #include "Empresa.h"
 #include "Utils.h"
+#include <algorithm>
+#include "BST.h"
 
 /**
  * @brief Mostrar informacao acerca dos camioes de um determinado tipo
@@ -39,6 +41,13 @@ void mostrarInformacaoServicos(Empresa& e1);
  */
 
 void mostrarInformacaoMotoristas(Empresa& e1);
+
+/**
+ * @brief Mostrar as informações relativas às oficinas
+ *
+ * @param e1 Empresa que contém informação sobre as oficinas
+ */
+void mostrarInformacaoOficinas(Empresa& e1);
 
 /**
  * @brief Mostra dados dos utilizadores/servicos e lucro mensal da empresa
@@ -167,6 +176,7 @@ void gerirMotoristas(Empresa& e1);
 void Estatisticas(Empresa& e1);
 /**
  * @brief Menu que permite gerir os servicos das oficinas que sao prestados aos camioes
+ *
  * @param e1 empresa a ser alterada
  */
 void gerirServicosOficinas(Empresa& e1);

@@ -271,6 +271,12 @@ public:
 	* @return bool True se os servicos sao iguais, false caso contrario
 	*/
     bool operator ==(ServicoTransporte st2);
+    /**
+     * @brief Metodo que elimina o camiao ca do servico instanciado
+     * @param ca Camiao a ser eliminado do servico
+     * @return true se o camiao ca for eliminado com sucesso, falso caso contrario
+     */
+    bool eliminaCamiaoServico(Camiao* ca);
 	/**
 	* @brief Overload do operador << para escrever numa stream informacao de um servico
 	*
@@ -288,6 +294,7 @@ public:
 	* @brief Incrementa o identificador global, usado cada vez que se cria um novo servico
 	*
 	*/
+
     //static void atualizaID();
 };
 
