@@ -25,9 +25,17 @@ struct Date{
 	* @return bool True se a primeira data e menor que a segunda, caso contrario false
 	*/
     bool operator <(const Date& d1);
-
+    /**
+     * @brief Overload do operador + para efetuar a soma entre duas datas
+     * @param d1 data a ser somada
+     * @return Date com o resultado da soma entre ambas as datas
+     */
     Date operator +(const Date& d1);
-
+    /**
+     * @brief Método que adiciona a uma data un número d de dias
+     * @param d Número de dias a ser somado
+     * @return Date com o resultado da soma pretendida
+     */
     Date addDays(unsigned& d);
 };
 

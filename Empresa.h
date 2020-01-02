@@ -14,6 +14,10 @@
 #include "Oficina.h"
 using namespace std;
 
+/**
+ * Struct usada para a hash table dos clientes inativos
+ */
+
 struct inactiveClientHash {
     int operator() (const Cliente& c1) const {
         return 0;
@@ -326,9 +330,21 @@ public:
     */
     void updateOficinas();
 
+
     void subscreveServicoOficina(string tipoServico, Oficina& o1);
 
+    /**
+     * @brief Permite alterar a fila de prioridade com as oficinas da empresa
+     * @param oficinas Nova priority_queue das oficinas
+     */
+
     void setOficinas(priority_queue <Oficina> oficinas);
+
+    /**
+     * @brief Método que permite subscrever a uma oficina um serviço específico a um camião da marca passada no parâmetro
+     * @param marca Marca do camião ao qual se destina o serviço
+     * @return true se o serviço for agendado com sucesso, false caso contrário
+     */
 
     bool adicionaServicoEspecifico(string marca);
 };

@@ -237,18 +237,61 @@ string menuDateInput(string mensagem);
 
 int BinarySearch(const vector<char> &v, char x);
 
+/**
+ * @brief Função usada para procurar um motorista numa BST através do seu id
+ * @param motoristas BST de motoristas na qual o motorista se encontra
+ * @param idx Identificador do motorista a encontrar
+ * @return Apontador com o motorista encontrado
+ */
+
 Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx);
+
+/**
+ * @brief Verifica se um cliente se encontra ativo
+ * @param c1 Cliente a ser verificado
+ * @return Inteiro com 1 se o cliente se enc
+ */
 
 int activeCheck(Cliente c1);
 
-//bool verificaInatividade(const Cliente& c1, vector <ServicoTransporte> vst);
+/**
+ * @brief Função que permite separas uma string em uma lista de strings, através de um caracter separador
+ * @param fullstring String com todas as strings a colocar na lista resultado
+ * @param delimiter Caracter que separa as diferentes strings a colocar na lista
+ * @return Lista com as diferentes strings devidamente separadas
+ */
 
 list<string> listStringSplit(string fullstring, char delimiter);
 
+/**
+ * @brief Função que permite colocar as strings de uma lista em uma string
+ * @param marcas Lista com as strings a juntar
+ * @return String com todas as strings contidas na lista passada no parâmetro
+ */
+
 string toStringMarcas(list <string> marcas);
+
+/**
+ * @brief Função que permite encontrar um camião num vetor de camiões através do seu id
+ * @param camioes vetor de camiões onde se pretende encontrar o camião
+ * @param id Identificador do camião a procurar
+ * @return Apontador do camião encontrado
+ */
 
 Camiao* findCamioesID(vector <Camiao*> camioes, int id);
 
+/**
+ * @brief Função que permite saber o número de dias até uma determinada data
+ * @param d Date com a data pretendida
+ * @return Inteiro com o número de dias até à data passada no parâmetro
+ */
+
 int getNumDays(Date d);
+
+/**
+ * @brief Função que permite saber se um ficheiro se encontra vazio
+ * @param file Ficheiro a analisar
+ * @return true se o ficheiro se encontrar vazio, false caso contrário
+ */
 
 bool emptyF(ifstream& file);
