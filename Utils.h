@@ -21,14 +21,6 @@ using namespace std;
 string removeSpaces(string fullstring);
 
 /**
- * @brief Verifica se a string dada como argumento é composta só por letras e/ou espacos
- *
- * @param str String a ser verificada
- * @return bool True se verifica a condicao, false se nao verifica
- */
-bool checkNameString(string str);
-
-/**
  * @brief Decompoe uma string constituída por números e um caracter delimitador, num vetor de números apenas
  *
  * @param fullstring String a ser decomposta

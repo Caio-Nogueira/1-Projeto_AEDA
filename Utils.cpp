@@ -16,19 +16,6 @@ string removeSpaces(string fullstring){
     return fullstring;
 }
 
-bool checkNameString(string str) {
-
-	bool errorFound = false;
-	for (char c : str) {
-		if (!isalpha(c))
-			if (c == ' ' || c == '-')
-				continue;
-			else
-				errorFound = true;
-	}
-	return !errorFound;
-}
-
 //decompor a string obtida para os identificadores nos seus constituintes
 vector<int> stringSplit(string fullstring, char delimiter){
     vector<int> result;
@@ -161,12 +148,12 @@ bool compareTime(istringstream &time, istringstream &inicio, istringstream &fim)
     else return tempo_inicio <= tempo && tempo <= tempo_fim;
 }
 
+
 double distanceFinder(string origem, string destino, map<pair<string, string>,double>  distancias){
     for (auto it = distancias.begin(); it != distancias.end(); it++){
         if ((it->first.first == origem && it->first.second == destino) || (it->first.first == destino && it->first.second == origem))
             return it->second;
     }
-	return -1;
 }
 
 string getTipoCamiao(Camiao* ca){
@@ -264,54 +251,78 @@ double menuValidInput(string message ,double min,double max) {
 }
 
 string nivelVerifier(){
+    bool valid = false;
     vector <string> control = {"inflamavel", "toxico", "quimico"};
-    int input;
-	cout << "Escolha um dos niveis possiveis:" << endl << "0 - Inflamavel" << endl << "1 - Toxico" << endl << "2 - Quimico" << endl;
-	input = menuValidInput("Nivel:", 0, 2);
-    return control.at(input);
+    string input;
+    while (!valid){
+        cout << "nivel:";
+        getline(cin, input);
+        auto it = find(control.begin(), control.end(), input);
+        if (cin.fail() || it == control.end()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
+        else
+            valid = true;
+    }
+    return input;
 }
 
 string camioesTipoVerifier(vector<Camiao *> camioes, vector<Camiao *>& aux){ //vetor aux possui os camioes do primeiro vetor que pertencem ao tipo selecionado
+    bool valid = false;
     aux.clear();
     vector <string> control = {"perigosos", "congelacao", "normal", "animais"};
-    int input;
-	cout << "Escolha um dos tipos possiveis:" << endl << "0 - Perigosos" << endl << "1 - Congelacao" << endl << "2 - Normal" << endl << "3 - Animais" << endl;
-	input = menuValidInput("Tipo:", 0, 3);
-	string tipo = control.at(input);
+    string input;
+    while (!valid) {
+        cout << "Tipo (TIPOS: perigosos, congelacao, normal ou animais):";
+        getline(cin, input);
+        input = removeSpaces(input);
+        auto it = find(control.begin(), control.end(), input);
+        if (cin.fail() || it == control.end()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Tipo invalido (TIPOS: perigosos, congelacao, normal ou animais).\n";
+        }
+        else  valid = true;
+        if (input == "perigosos") {
+            for (Camiao* ca: camioes) {
+                Perigosos *np = dynamic_cast<Perigosos *>(ca);
+                if (np != nullptr){
+                    aux.push_back(ca);
+                }
+            }
+        }
 
-	if (tipo == "perigosos") {
-		for (Camiao* ca: camioes) {
-			Perigosos *np = dynamic_cast<Perigosos *>(ca);
-			if (np != nullptr){
-				aux.push_back(ca);
-			}
-		}
-	}
-	else if (tipo == "congelacao"){
-		for (Camiao* ca: camioes){
-			Congelacao* np = dynamic_cast<Congelacao*>(ca);
-			if (np != nullptr){
-				aux.push_back(ca);
-			}
-		}
-	}
-	else if (tipo == "normal"){
-		for (Camiao* ca: camioes){
-			Normal* np = dynamic_cast<Normal*>(ca);
-			if (np != nullptr){
-				aux.push_back(ca);
-			}
-		}
-	}
-	else if (tipo == "animais"){
-		for (Camiao* ca: camioes){
-			Animais* np = dynamic_cast<Animais*>(ca);
-			if (np != nullptr) {
-				aux.push_back(ca);
-			}
-		}
-	}
-    return tipo;
+        else if (input == "congelacao"){
+            for (Camiao* ca: camioes){
+                Congelacao* np = dynamic_cast<Congelacao*>(ca);
+                if (np != nullptr){
+                    aux.push_back(ca);
+                }
+            }
+        }
+
+        else if (input == "normal"){
+            for (Camiao* ca: camioes){
+                Normal* np = dynamic_cast<Normal*>(ca);
+                if (np != nullptr){
+                    aux.push_back(ca);
+                }
+            }
+        }
+
+        else if (input == "animais"){
+            for (Camiao* ca: camioes){
+                Animais* np = dynamic_cast<Animais*>(ca);
+                if (np != nullptr) {
+                    aux.push_back(ca);
+                }
+            }
+        }
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return input;
 }
 
 int GetMaxId(vector<ServicoTransporte> stvect){
@@ -336,14 +347,10 @@ bool checkHorario(string horario) {
             if (aux == 1) {
                 if (c != ':') return true;
             }
-            if (aux == 2) {
+            if (aux == 2 || aux == 3) {
                 if (!isdigit(c)) return true;
-				time1 += (c - '0') * 10;
+                time1 += c - '0';
             }
-			if (aux == 3) {
-				if (!isdigit(c)) return true;
-				time1 += c - '0';
-			}
             aux++;
         }
         if (time < 0 || time >= 24) return true;
@@ -353,25 +360,17 @@ bool checkHorario(string horario) {
         int time = 0;
         int time1 = 0;
         for (char c: horario) {
-            if (aux == 0) {
+            if (aux == 0 || aux == 1) {
                 if (!isdigit(c)) return true;
-                time += (c - '0') * 10;
+                time += c - '0';
             }
-			if (aux == 1) {
-				if (!isdigit(c)) return true;
-				time += c - '0';
-			}
             if (aux == 2) {
                 if (c != ':') return true;
             }
-            if (aux == 3) {
+            if (aux == 3 || aux == 4) {
                 if (!isdigit(c)) return true;
-                time1 += (c - '0') * 10;
+                time1 += c - '0';
             }
-			if (aux == 4) {
-				if (!isdigit(c)) return true;
-				time1 += c - '0';
-			}
             aux++;
         }
         if (time < 0 || time >= 24) return true;
@@ -393,7 +392,7 @@ string inputHorario(string mensagem) {
     else
         valid = true;
     while(!valid) {
-        cout << "Valor de horas INVALIDO, escreva uma hora valida no formato (HH:MM)." << endl;
+        cout << "Valor de horas INVALIDO, escreva as horas de forma (HH:MM)." << endl;
         cout << mensagem;
         cin >> input;
         if(cin.fail() || checkHorario(input)){
@@ -472,30 +471,27 @@ string toStringDate(const Date& d){
 Date getCurrentTime(){
     Date result;
     time_t t = time(NULL);
-	tm timePtr;
-	localtime_s(&timePtr, &t);
-    result.ano = timePtr.tm_year+1900;
-    result.mes = timePtr.tm_mon+1;
-    result.dia = timePtr.tm_mday;
+    tm* timePtr = localtime(&t);
+    result.ano = timePtr->tm_year+1900;
+    result.mes = timePtr->tm_mon+1;
+    result.dia = timePtr->tm_mday;
     return result;
 }
 
 bool DateVerifier(string date){
     unsigned aux = 0;
-	if (date.length() == 10) {
-		for (char c : date) {
-			if (aux == 2 || aux == 5) {
-				if (c != '/') return false;
-			}
-			else {
-				if (!isdigit(c)) return false;
-			}
-			aux++;
-		}
-		return true;
-	}
-	else
-		return false;
+    if (date.length() == 10) {
+        for (char c : date) {
+            if (aux == 2 || aux == 5) {
+                if (c != '/') return false;
+            }
+            else {
+                if (!isdigit(c)) return false;
+            }
+            aux++;
+        }
+        return true;
+    }
 }
 
 string menuDateInput(string mensagem){
@@ -509,7 +505,7 @@ string menuDateInput(string mensagem){
     }
     else valid = true;
     while (!valid){
-        cout << "Data invalida. Introduza uma data valida no formato (DD/MM/AAAA)." << endl;
+        cout << "Data invalida. Introduza no formato (DD/MM/AAAA)." << endl;
         cout << mensagem;
         cin >> date_str;
         if (cin.fail() || !DateVerifier(date_str) || dateSplitter(date_str).mes > 12 || dateSplitter(date_str).dia > 31){
@@ -537,13 +533,14 @@ int BinarySearch(const vector<char> &v, char x) {
 }
 
 Motorista* findMotoristaIndex(BST<Motorista> motoristas, int idx){
-	Motorista* m = NULL;
+    Motorista* m;
     BSTItrIn <Motorista> it(motoristas);
     while(!it.isAtEnd()){
         if (it.retrieve().getId() == idx) m = new Motorista(it.retrieve());
         it.advance();
     }
     return m;
+
 }
 
 int activeCheck(Cliente c1) {

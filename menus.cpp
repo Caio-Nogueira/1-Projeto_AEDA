@@ -5,16 +5,9 @@ using namespace std;
 
 void adicionarClientes(Empresa& e1){
     string nome;
-	bool nameClear = false;
-	cout << "Nome:";
-	while (nameClear == false) {
-		getline(cin, nome);
-		nome = removeSpaces(nome);
-		nameClear = checkNameString(nome);
-		if (nameClear == false) {
-			cout << "O nome so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-		}
-	}
+    cout << "Nome:";
+    getline(cin, nome);
+    nome = removeSpaces(nome);
     int idade = menuValidInput("Idade:" ,18,120);
     int nif = inputNIF("Nif:");
 
@@ -32,8 +25,7 @@ void editarClientes(Empresa& e1){
     int option;
     int idx;
     vector<Cliente> copia = e1.getClientes();
-	HashTabInactiveClient clientesInativos = e1.getInactive();
-    copia.insert(copia.end(), clientesInativos.begin(), clientesInativos.end());
+    copia.insert(copia.end(), e1.getInactive().begin(), e1.getInactive().end());
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
     for (size_t i = 1; i <= copia.size(); i++){
@@ -42,24 +34,17 @@ void editarClientes(Empresa& e1){
     }
     idx = menuValidInput("Selecione o cliente que pretende editar:",0, copia.size());
     if (idx == 0) return;
-    cout << "[0] Sair\n" << "[1] Nome\n" << "[2] Idade\n" << "[3] Nif\n" << "[4] Eliminar servicos adquiridos\n" << "[5] Adicionar servicos adquiridos" << endl << endl;
+    cout << "[0] Sair\n" << "[1] Nome\n" << "[2] Idade\n" << "[3] Nif\n" << "[4] Eliminar servicos adquiridos\n" << "[5] adicionar servicos adquiridos" << endl << endl;
     option = menuValidInput("Selecione o que pretende editar:", 0, 5);
     cout << "--------------------------------------------------" << endl;
     switch (option) {
         case 0:
             return;
         case 1: {
-			bool nameClear = false;
-			string novo_nome;
-			cout << "Novo nome:";
-			while (nameClear == false) {
-				getline(cin, novo_nome);
-				novo_nome = removeSpaces(novo_nome);
-				nameClear = checkNameString(novo_nome);
-				if (nameClear == false) {
-					cout << "O nome so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
+            string novo_nome;
+            cout << "Novo nome:";
+            getline(cin, novo_nome);
+            novo_nome = removeSpaces(novo_nome);
             copia.at(idx - 1).setName(novo_nome);
             break;
         }
@@ -120,8 +105,7 @@ void eliminarClientes(Empresa& e1) {
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
     vector<Cliente> copia = e1.getClientes();
-	HashTabInactiveClient clientesInativos = e1.getInactive();
-    copia.insert(copia.end(), clientesInativos.begin(), clientesInativos.end());
+    copia.insert(copia.end(), e1.getInactive().begin(), e1.getInactive().end());
     for (size_t i = 1; i <= copia.size(); i++) {
         cout << "[" << i << "] " << copia.at(i - 1);
         cout << "--------------------------------------------------" << endl;
@@ -141,7 +125,7 @@ void gerirClientes(Empresa& e1) {
     cout << "[1] => Adicionar um novo cliente\n";
     cout << "[2] => Editar um cliente existente\n";
     cout << "[3] => Eliminar um cliente\n";
-    option = menuValidInput("Opcao:" ,0,3);
+    option = menuValidInput("Opcao:" ,0,4);
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     switch(option){
         case 0: return;
@@ -175,17 +159,11 @@ void adicionarCamioes(Empresa& e1){
         case 1: {
             int cap = menuValidInput("Capacidade:", 0, 200000);
             string marca, nivel;
-			bool nameClear = false;
-			cout << "Marca:";
-			while (nameClear == false) {
-				getline(cin, marca);
-				marca = removeSpaces(marca);
-				nameClear = checkNameString(marca);
-				if (nameClear == false) {
-					cout << "A marca so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
+            cout << "Marca:";
+            getline(cin, marca);
+            marca = removeSpaces(marca);
             nivel = nivelVerifier();
+            nivel = removeSpaces(nivel);
             Perigosos *p = new Perigosos(cap, marca, 0, nivel);
             cout << "Camiao adicionardo:\n" << *p;
             Camiao *ca = p;
@@ -200,16 +178,9 @@ void adicionarCamioes(Empresa& e1){
         case 2: {
             int cap = menuValidInput("Capacidade:", 0, 200000);
             string marca;
-			bool nameClear = false;
             cout << "Marca:";
-			while (nameClear == false) {
-				getline(cin, marca);
-				marca = removeSpaces(marca);
-				nameClear = checkNameString(marca);
-				if (nameClear == false) {
-					cout << "A marca so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
+            getline(cin, marca);
+            marca = removeSpaces(marca);
             int tempmin = menuValidInput("Temperatura minima:", -1000, 1000);
             Congelacao *c = new Congelacao(cap, marca, 0, tempmin);
             cout << "Camiao adicionardo:\n" << *c;
@@ -225,19 +196,12 @@ void adicionarCamioes(Empresa& e1){
 
         case 3: {
             int cap = menuValidInput("Capacidade:", 0, 200000);
-			string marca;
-			bool nameClear = false;
-			cout << "Marca:";
-			while (nameClear == false) {
-				getline(cin, marca);
-				marca = removeSpaces(marca);
-				nameClear = checkNameString(marca);
-				if (nameClear == false) {
-					cout << "A marca so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
+            string marca;
+            cout << "Marca:";
+            getline(cin, marca);
+            marca = removeSpaces(marca);
             Normal *n = new Normal(cap, marca, 0);
-            cout << "Camiao adicionado:\n" << *n;
+            cout << "Camiao adicionardo:\n" << *n;
             Camiao *ca = n;
             try {
                 e1.adicionarCamiao(ca);
@@ -250,17 +214,10 @@ void adicionarCamioes(Empresa& e1){
 
         case 4:{
             int cap = menuValidInput("Capacidade:", 0, 200000);
-			string marca;
-			bool nameClear = false;
-			cout << "Marca:";
-			while (nameClear == false) {
-				getline(cin, marca);
-				marca = removeSpaces(marca);
-				nameClear = checkNameString(marca);
-				if (nameClear == false) {
-					cout << "A marca so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
+            string marca, nivel;
+            cout << "Marca:";
+            getline(cin, marca);
+            marca = removeSpaces(marca);
             int numAnimais = menuValidInput("Numero de animais:", 0, 10000);
             Animais *na = new Animais(cap, marca, 0, numAnimais);
             cout << "Camiao adicionardo:\n" << *na;
@@ -337,17 +294,9 @@ void editarCamioes(Empresa& e1) {
             break;
         }
         case 2: {
-			string marca;
-			bool nameClear = false;
-			cout << "Marca:";
-			while (nameClear == false) {
-				getline(cin, marca);
-				marca = removeSpaces(marca);
-				nameClear = checkNameString(marca);
-				if (nameClear == false) {
-					cout << "A marca so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
+            string marca;
+            cout << "Marca:";
+            getline(cin, marca);
             if (np != nullptr)
                 np->setMarca(marca);
             else if (nn != nullptr)
@@ -421,7 +370,7 @@ void adicionarServicos(Empresa& e1){
         switch(option) {
             case 0: return;
             case 1: {
-                size_t op = menuValidInput("Numero de camioes para a entrega:", 1, aux.size());
+                int op = menuValidInput("Numero de camioes para a entrega:", 1, aux.size());
                 for (size_t i = 0; i < op; i++) {
                     if (i == op - 1) camioes_str += to_string(aux.at(i)->getId());
                     else {
@@ -446,27 +395,9 @@ void adicionarServicos(Empresa& e1){
         }
     }
     vector <Camiao*> vect = camioesBuilder(camioes_str, aux, tipo_camioes);
-    cout << "Origem:";
-	bool nameClear = false;
-	while (nameClear == false) {
-		getline(cin, origem);
-		origem = removeSpaces(origem);
-		nameClear = checkNameString(origem);
-		if (nameClear == false) {
-			cout << "O local so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-		}
-	}
-	cout << "Destino:";
-	nameClear = false;
-	while (nameClear == false) {
-		getline(cin, origem);
-		origem = removeSpaces(origem);
-		nameClear = checkNameString(origem);
-		if (nameClear == false) {
-			cout << "O local so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-		}
-	}
-	horario = inputHorario("Horario (HH:MM):");
+    cout << "Origem:";getline(cin, origem);
+    cout << "Destino:";getline(cin, destino);
+    horario = inputHorario("Horario:");
     data = menuDateInput("Data(DD/MM/AAAA):");
     n_horas = menuValidInput("Numero de horas estimadas:", 0, 100);
     ServicoTransporte st(origem,destino,tipo_camioes,vect,horario, dateSplitter(data),1, (unsigned) n_horas);
@@ -526,19 +457,11 @@ void editarServicos(Empresa& e1){
             bool found = false;
             string origem;
             while (!found) {
-				cout << "Origem:";
-				bool nameClear = false;
-				while (nameClear == false) {
-					getline(cin, origem);
-					origem = removeSpaces(origem);
-					nameClear = checkNameString(origem);
-					if (nameClear == false) {
-						cout << "O local so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-					}
-				}
+                cout << "Origem:";
+                getline(cin, origem);
                 auto it = find(v.begin(), v.end(), origem);
                 if (it == v.end())
-                    cout << "Localizacao indisponivel.\n";
+                    cout << "Localizacao indisponivel\n";
                 else found=true;
             }
 
@@ -555,16 +478,8 @@ void editarServicos(Empresa& e1){
             bool found = false;
             string destino;
             while (!found) {
-				cout << "Destino:";
-				bool nameClear = false;
-				while (nameClear == false) {
-					getline(cin, destino);
-					destino = removeSpaces(destino);
-					nameClear = checkNameString(destino);
-					if (nameClear == false) {
-						cout << "O local so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-					}
-				}
+                cout << "Destino:";
+                getline(cin, destino);//cin.ignore(1000, '\n');
                 auto it = find(v.begin(), v.end(), destino);
                 if (it == v.end()) cout << "Localizacao indisponivel\n";
                 else found = true;
@@ -598,7 +513,7 @@ void gerirServicos(Empresa& e1){
     cout << "[0] Sair\n";
     cout << "[1] Adicionar um servico\n";
     cout << "[2] Editar um servico\n";
-    cout << "[3] Eliminar um servico\n";
+    cout << "[3] Eliminar um servico\n";// << "Opcao: ";
     int option = menuValidInput("Opcao:",0,3);
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     switch(option){
@@ -622,22 +537,16 @@ void gerirServicos(Empresa& e1){
 
 void adicionarMotoristas(Empresa& e1) {
     string nome, idade_str, salario_str, horario_str, horario2_str, categorias_str;
-	bool nameClear = false;
-	cout << "Nome:";
-	while (nameClear == false) {
-		getline(cin, nome);
-		nome = removeSpaces(nome);
-		nameClear = checkNameString(nome);
-		if (nameClear == false) {
-			cout << "O nome so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-		}
-	}
+    cout << "Nome:";;
+    getline(cin, nome);
+    nome = removeSpaces(nome);
     int idade = menuValidInput("Idade:", 24, 65);
     int salario = menuValidInput("Salario:", 0, 1000000000);
     horario_str = inputHorario("Horario Inicial (HH:MM):");
     horario2_str = inputHorario("Horario Final (HH:MM):");
     horario_str = horario_str + " -> " + horario2_str;
-    cout << "Categorias (separadas por ' ; '):";  getline(cin, categorias_str);
+    //cin.ignore(10000, '\n');
+    cout << "Categorias (separadadas por ' ; '):";  getline(cin, categorias_str);
     Motorista mot(nome, idade, salario, toPair(horario_str), categoryVector(categorias_str),0);
     try {
         e1.adicionarMotorista(mot);
@@ -669,25 +578,14 @@ void editarMotoristas(Empresa& e1) {
             editarMotoristas(e1);
             break;
         case 1: {
-            string nome;
-			bool nameClear = false;
-			cout << "Nome:";
-			while (nameClear == false) {
-				getline(cin, nome);
-				nome = removeSpaces(nome);
-				nameClear = checkNameString(nome);
-				if (nameClear == false) {
-					cout << "O nome so pode conter letras, espacos, e hifens." << endl << "Tente outra vez:";
-				}
-			}
-            Motorista *m = findMotoristaIndex(copia,idx);
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
-            copia.remove(*m);
-            m->setName(nome);
-            copia.insert(*m);
+            string name;
+            cout << "Nome:";
+            getline(cin, name);
+            name = removeSpaces(name);
+            Motorista *s = findMotoristaIndex(copia,idx);
+            copia.remove(*s);
+            s->setName(name);
+            copia.insert(*s);
             e1.setMotoristas(copia);
             break;
         }
@@ -695,10 +593,6 @@ void editarMotoristas(Empresa& e1) {
             int age;
             age = menuValidInput("Idade:", 24, 65);
             Motorista* m = findMotoristaIndex(copia,idx);
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
             copia.remove(*m);
             m->setAge(age);
             copia.insert(*m);
@@ -709,10 +603,6 @@ void editarMotoristas(Empresa& e1) {
             int salary;
             salary = menuValidInput("Novo salario:", 0, 1000000000);
             Motorista* m = findMotoristaIndex(copia,idx);
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
             copia.remove(*m);
             m->setSalario(salary);
             copia.insert(*m);
@@ -728,10 +618,6 @@ void editarMotoristas(Empresa& e1) {
                     inicio = inputHorario("Horario Inicial (HH:MM):");
                     //BST<Motorista> copia = e1.getMotoristas();
                     Motorista* m = findMotoristaIndex(copia,idx);
-					if (m == NULL) {
-						cout << "Erro a procurar motorista.\n";
-						return;
-					}
                     copia.remove(*m);
                     m->setHorario(inicio, m->getHorario().second);
                     copia.insert(*m);
@@ -743,10 +629,6 @@ void editarMotoristas(Empresa& e1) {
                     fim = inputHorario("Horario Final (HH:MM):");
                     //BST<Motorista> copia = e1.getMotoristas();
                     Motorista* m = findMotoristaIndex(copia,idx);
-					if (m == NULL) {
-						cout << "Erro a procurar motorista.\n";
-						return;
-					}
                     copia.remove(*m);
                     m->setHorario(m->getHorario().first, fim);
                     copia.insert(*m);
@@ -763,10 +645,6 @@ void editarMotoristas(Empresa& e1) {
                     time += time1;
                     //BST<Motorista> copia = e1.getMotoristas();
                     Motorista* m = findMotoristaIndex(copia,idx);
-					if (m == NULL) {
-						cout << "Erro a procurar motorista.\n";
-						return;
-					}
                     copia.remove(*m);
                     m->setHorario(toPair(time));
                     copia.insert(*m);
@@ -778,13 +656,9 @@ void editarMotoristas(Empresa& e1) {
         }
         case 5: {
             string category;
-            cout << "Categorias (separadas por ' ; ') "; getline(cin, category);
+            cout << "Categorias (separadadas por ' ; ') "; getline(cin, category);
             //BST<Motorista> copia = e1.getMotoristas();
             Motorista* m = findMotoristaIndex(copia,idx);
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
             copia.remove(*m);
             m->setCategorias(categoryVector(category));
             copia.insert(*m);
@@ -801,24 +675,13 @@ void eliminarMotoristas(Empresa& e1) {
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
     while (!it.isAtEnd()) {
-		Motorista* m = findMotoristaIndex(copia, it.retrieve().getId());
-		if (m == NULL) {
-			cout << "Erro a procurar motorista.\n";
-			return;
-		}
         cout << "[" << it.retrieve().getId() << "] -> ";
-        cout << *m;
+        cout << findMotoristaIndex(copia, it.retrieve().getId());
         cout << "--------------------------------------------------" << endl;
-		it.advance();
     }
-    int option = menuValidInput("Selecione o motorista:", 0, Motorista::getLastId());
+    int option = menuValidInput("Selecione o motorista:", 0, Motorista::getLastId()+1);
     if (option == 0) return;
-	Motorista* m = findMotoristaIndex(copia, option);
-	if (m == NULL) {
-		cout << "Erro a procurar motorista.\n";
-		return;
-	}
-    e1.eliminarMotorista(*m);
+    e1.eliminarMotorista(*findMotoristaIndex(copia, option));
 }
 
 
@@ -943,8 +806,7 @@ void mostrarInformacaoClientes(Empresa& e1) {
     cout << "[0] Sair\n";
     cout << "--------------------------------------------------" << endl;
     vector<Cliente> copia = e1.getClientes();
-	HashTabInactiveClient clientesInativos = e1.getInactive();
-    copia.insert(copia.end(), clientesInativos.begin(), clientesInativos.end());
+    copia.insert(copia.end(), e1.getInactive().begin(), e1.getInactive().end());
     for (size_t i = 1; i <= copia.size(); i++){
         cout << "[" << i << "]\n" << copia.at(i-1);
         cout << "--------------------------------------------------" << endl;
@@ -991,72 +853,43 @@ void mostrarInformacaoMotoristas(Empresa& e1) {
     cout << "--------------------------------------------------" << endl;
     int option = menuValidInput("Selecione a opcao desejada:",0,4);
     BST<Motorista> copia = e1.getMotoristas();
-	int countMotoristas = 0;
     if (option == 0) return;
     else if (option == 1) {
         BSTItrIn<Motorista> it(copia);
         while (!it.isAtEnd()){
-			Motorista* m = findMotoristaIndex(copia, it.retrieve().getId());
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
-            cout << "[" << it.retrieve().getId() << "] Nome:" << m->getName() << endl << "    Idade:" << m->getAge() << endl;
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
             cout << "--------------------------------------------------" << endl;
             it.advance();
-			countMotoristas++;
         }
     }
     else if (option == 2) {
         BSTItrLevel<Motorista> it(copia);
         while (!it.isAtEnd()){
-			Motorista* m = findMotoristaIndex(copia, it.retrieve().getId());
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
-            cout << "[" << it.retrieve().getId() << "] Nome:" << m->getName() << endl << "    Idade:" << m->getAge() << endl;
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
             cout << "--------------------------------------------------" << endl;
             it.advance();
-			countMotoristas++;
         }
     }
     else if (option == 3) {
         BSTItrPre<Motorista> it(copia);
         while (!it.isAtEnd()){
-			Motorista* m = findMotoristaIndex(copia, it.retrieve().getId());
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
-            cout << "[" << it.retrieve().getId() << "] Nome:" << m->getName() << endl << "    Idade:" << m->getAge() << endl;
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
             cout << "--------------------------------------------------" << endl;
             it.advance();
-			countMotoristas++;
         }
     }
     else if (option == 4) {
         BSTItrPost<Motorista> it(copia);
         while (!it.isAtEnd()){
-			Motorista* m = findMotoristaIndex(copia, it.retrieve().getId());
-			if (m == NULL) {
-				cout << "Erro a procurar motorista.\n";
-				return;
-			}
-            cout << "[" << it.retrieve().getId() << "] Nome:" << m->getName() << endl << "    Idade:" << m->getAge() << endl;
+            cout << "[" << it.retrieve().getId() << "] Nome:" << findMotoristaIndex(copia, it.retrieve().getId())->getName() << endl << "    Idade:" << findMotoristaIndex(copia, it.retrieve().getId())->getAge() << endl;
             cout << "--------------------------------------------------" << endl;
             it.advance();
-			countMotoristas++;
         }
     }
-    int option2 = menuValidInput("Selecione o motorista para ver em detalhe:", 0, countMotoristas);
+    int option2 = menuValidInput("Selecione o motorista para ver em detalhe:", 0, e1.getServicos().size());
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     if (option2 == 0) return;
     Motorista *mot = findMotoristaIndex(e1.getMotoristas(), option2);
-	if (mot == NULL) {
-		cout << "Erro a procurar motorista.\n";
-		return;
-	}
     cout << *mot;
 }
 
@@ -1103,6 +936,7 @@ void Estatisticas(Empresa& e1){
             mostrarInformacaoEmpresa(e1);
             break;
     }
+    //return;
 }
 
 void gerirServicosOficinas(Empresa& e1){
@@ -1118,8 +952,8 @@ void gerirServicosOficinas(Empresa& e1){
     Camiao* ca = findCamioesID(e1.getCamioes(), id_sel);
     cout << "[0] Sair\n" ;
     cout << "[1] Servico normal\n";
-    cout << "[2] Servico especifico\n";
-    int option = menuValidInput("Escolha o tipo de servico que pretende:", 0, 2);
+    cout << "[2] Serviço especifico\n";
+    int option = menuValidInput("Escolah o tipo de servico que pretende:", 0, 2);
     switch(option){
         case 0: return;
         case 1: {
