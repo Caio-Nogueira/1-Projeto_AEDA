@@ -46,8 +46,15 @@ bool Oficina::addServico(string marca, string tipoServico) {
     auto it = find(marcas.begin(), marcas.end(), marca);
     if (tipoServico != "normal" && it == marcas.end()) //servico especifico e a marca nao e abrangida pela oficina
         return false;
-    disponibilidade += 3;
-    unsigned disp = 3;
+    unsigned  disp;
+    if (tipoServico == "normal") {
+        disponibilidade += 1;
+        disp = 1;
+    }
+    else {
+        disponibilidade += 3;
+        disp = 3;
+    }
     next_available_date = next_available_date.addDays(disp);
     return true;
 }

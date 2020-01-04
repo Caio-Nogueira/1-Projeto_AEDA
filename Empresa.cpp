@@ -732,9 +732,9 @@ void Empresa::subscreveServicoOficina(string tipoServico, Oficina& o1) {
         aux.pop();
     }
     unsigned disp = o1.getDisponibilidade();
-    if (tipoServico == "revisao") o1.setDisponibilidade(disp+2);
-    else if (tipoServico == "mudanca oleo") o1.setDisponibilidade(disp+3);
-    else if (tipoServico == "substituicao peca") o1.setDisponibilidade(disp+4);
+    if (tipoServico == "revisao") o1.setDisponibilidade(disp+1);
+    else if (tipoServico == "mudanca oleo") o1.setDisponibilidade(disp+1);
+    else if (tipoServico == "substituicao peca") o1.setDisponibilidade(disp+1);
     while (!oficinas.empty()) oficinas.pop();
     for (Oficina o: oficinas_vector) oficinas.push(o);
     Date current = o1.getDateAvailable();

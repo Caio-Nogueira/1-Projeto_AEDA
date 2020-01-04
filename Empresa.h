@@ -12,6 +12,7 @@
 #include <algorithm>
 #include "BST.h"
 #include "Oficina.h"
+#include <cmath>
 using namespace std;
 
 /**
@@ -20,7 +21,8 @@ using namespace std;
 
 struct inactiveClientHash {
     int operator() (const Cliente& c1) const {
-        return 0;
+        int table_size = 97;
+        return (c1.getNif()*(int)pow(2,8)) % table_size;
     }
 
     bool operator() (const Cliente& c1, const Cliente& c2) const {

@@ -913,7 +913,7 @@ void Estatisticas(Empresa& e1){
     cout << "= = = = = = = = = =ESTATISTICAS= = = = = = = = = =" << endl;
     cout << "[0] Sair\n" << "[1] Mostrar informacao dos clientes\n" << "[2] Mostrar informacao dos camioes\n" << "[3] Mostrar informacao dos servicos disponiveis\n";
     cout << "[4] Mostrar informacao dos motoristas\n" << "[5] Mostrar informacao relativa as oficinas\n" << "[6] Mostrar informacao mensal da empresa\n";
-    int option = menuValidInput("Opcao:", 0, 5);
+    int option = menuValidInput("Opcao:", 0, 6);
     cout << "= = = = = = = = = = = = = = = = = = = = = = = = ==" << endl;
     switch(option){
         case 0: return;
